@@ -3,13 +3,13 @@
 ## Table of contents
 
 1. [Introduction](##Introduction)
-    1.1 [Overview](###Overview)
-    1.2 [Glossary](###Glossary) 
+   - 1.1 [Overview](###Overview)
+   - 1.2 [Glossary](###Glossary) 
 2. [General Description](##General\ Description)
-    2.1 [Product / System Functionalities](###Product\ \/\ System\ Functionalities)
-    2.2 [User Characteristics and Objectives](User\ Characteristics\ and\ Objectives)
-    2.3 [Operational Scenarios](###Operational\ Scenarios)
-    2.4 [Constraints](###Constraints)
+   - 2.1 [Product / System Functionalities](###Product\ \/\ System\ Functionalities)
+   - 2.2 [User Characteristics and Objectives](User\ Characteristics\ and\ Objectives)
+   - 2.3 [Operational Scenarios](###Operational\ Scenarios)
+   - 2.4 [Constraints](###Constraints)
 3. [Functional Requirements](##Functional\ Requirements)
 4. [System Architecture](##System\ Architecture)
 5. [High-Level Design](##High-Level\ Design)
@@ -323,6 +323,10 @@ We expect our users to be very well adapted to technology, as we expect that mos
 ## High-Level Design
 
 ![High level design diagram](HighLevelDesign1.png)
+
+### Use Case Diagram
+
+![Use Case diagram](UseCaseDiagram.png)
 
 ## Preliminary Schedule
 
