@@ -2,28 +2,29 @@
 
 ## Table of contents
 
-1. [Introduction](##Introduction)
-   - 1.1 [Overview](###Overview)
-   - 1.2 [Glossary](###Glossary) 
-2. [General Description](##General\ Description)
-   - 2.1 [Product / System Functionalities](###Product\ \/\ System\ Functionalities)
-   - 2.2 [User Characteristics and Objectives](User\ Characteristics\ and\ Objectives)
-   - 2.3 [Operational Scenarios](###Operational\ Scenarios)
-   - 2.4 [Constraints](###Constraints)
+1. [Introduction](##\ 1.\ Introduction)
+    1.1 [Overview](###\ 1.1\ Overview)
+    1.2 [Glossary](###\ 1.2\ Glossary) 
+2. [General Description](##\ 2\ General\ Description)
+    2.1 [Product / System Functionalities](###\ Product\ \/\ System\ Functionalities)
+    2.2 [User Characteristics and Objectives](User\ Characteristics\ and\ Objectives)
+    2.3 [Operational Scenarios](###Operational\ Scenarios)
+    2.5 [Use Cases](###\ Use\ Cases)
+    2.6 [Constraints](###\ Constraints)
 3. [Functional Requirements](##Functional\ Requirements)
 4. [System Architecture](##System\ Architecture)
 5. [High-Level Design](##High-Level\ Design)
 6. [Preliminary Schedule](##Preliminary\ Schedule)
 7. [Appendices](##Appendices)
 
-## Introduction
+## 1. Introduction
 
-### Overview:
+### 1.1 Overview:
 
 The product we are developing is a product to make it easier for admins to detect malicious activity and wifi performance throughout the system. We are doing this by placing raspberry pis or nodes strategically around the campus, business or organization. The Raspberry Pis will be running kali linux which is a distribution specifically for network penetration and testing. On Kali linux we are using scapy with python to run scripts to sniff packets and create packets to test our snort rules. The scripts will be collecting and logging critical information about the wireless network to be received by the server where they will be graphed and processed. Snort is a network intrusion detection system (NIDS) that will be used as a filter for the packets. We will be filtering the packets by creating rules for what we want to filter and detect. Snort can be used to send alerts when the filters catch unusual traffic which does not match the usual network activity. With all of the information collected from the python scripts and snort, we will be displaying the information using graphite and grafana. This will display and accurate representation of the state of their system to the client/admin on the other end. This will also have the ability to display historical statistics providing that the system was running and listening at the time.
 
 
-### Glossary:
+### 1.2 Glossary:
 
 * **Kali Linux**: 
     * Linux distribution targeted towards offensive security and penetration testing
@@ -38,19 +39,22 @@ The product we are developing is a product to make it easier for admins to detec
 * **CLI**: 
     * Command Line Interface
 
-## General Description
+## 2 General Description
 
-### Product / System Functions:
+### 2.1 Product / System Functions:
 
 The function of this product is to be able to detect malicious activity while, also, accurately displaying information and metrics related to the wireless network to the admin or client. This information will include details of any ongoing problems with the Wifi signal throughout the organisation, and also screening for any abnormalities and malware on the network.
 
 
-### User Characteristics and Objectives:
+### 2.2 User Characteristics and Objectives:
 
 We expect our users to be very well adapted to technology, as we expect that most of our user base will be admins. From the user's perspective the software should detect and give alerts of malicious or unusual activity within the network with minimal configuration needed day to day. Most of the interaction will be querying and browsing graphs through grafana and graphite or querying a command line interface(CLI)
 
+### 2.3 Operating Environment
 
-### Operational Scenarios:
+The operating evironment will be a striped down version of kali linux designed for the raspberry pi. This will allow us to have the ensential tools for penetration testing while also being light weight enough to run on raspberry pis. The server will be an Ubuntu system running graphite and grafana to collect and graph metrics with apache to manage the web hosting. 
+
+### 2.4 Operational Scenarios:
 
 #### User Mike Logs onto grafana
 
@@ -93,7 +97,7 @@ We expect our users to be very well adapted to technology, as we expect that mos
 * Informal Scenario: Mike edits a configuration and makes the value for the rule false 
 * Next Scenario: Mike logs into grafana to check
 
-### Use Cases
+### 2.5 Use Cases
 
 | Use Case 1             | User logs into grafana                                        |
 | ------------------------|:----------------------------------------------------------:|
@@ -209,7 +213,19 @@ We expect our users to be very well adapted to technology, as we expect that mos
 | **Step** | **Branching Action**                                     |
 | 3a       | Grafana does not have any metrics for this time period  |
 
-## Functional Requirements
+### 2.6 User Documentation
+
+* Grafana  - Has documentation
+* Graphite - Has documentation
+* Kali     - Has documentation
+* Snort    - Has documentation but limited, suplement documentation and configuration needs to be done
+* Daemons  - Has to be fully documented by us
+
+### 2.7 Assumptions and Dependencies
+
+* We are assuming our end user will be admins and of substatial knowledge configuring a network
+
+## 3. Functional Requirements
 
 ### Node Automatic Connection To Server
 
@@ -305,7 +321,13 @@ We expect our users to be very well adapted to technology, as we expect that mos
 * Technical issues - How to program our own traceroute feature
 * Dependencies with other requirements - None
 
-## Constraints
+## Non Functional Requirements
+
+* Metrics need to reach the server fast enough to be relevant
+* Metrics need to accurate when collected
+* Configuring snort rules needs to be a painless and easy experience
+
+## 4. Constraints
 
 ### Time constraints
 * The project should be completed by the DCU 3rd year project deadline on Friday the 9/3/2018 at 5pm.
@@ -316,11 +338,11 @@ We expect our users to be very well adapted to technology, as we expect that mos
 ### User constraints
 * The features should be easy to use or quick to learn for a user of substantial network knowledge, eg. system administrator and this project should include enough documentation to allow the user to get up to speed fast with how to use and install this tool with minimal headache.
 
-## System Architecture
+## 5. System Architecture
 
 ![Architechture Diagram](Architechture.png)
 
-## High-Level Design
+## 6. High-Level Design
 
 ![High level design diagram](HighLevelDesign1.png)
 
@@ -328,7 +350,7 @@ We expect our users to be very well adapted to technology, as we expect that mos
 
 ![Use Case diagram](UseCaseDiagram.png)
 
-## Preliminary Schedule
+## 7. Preliminary Schedule
 
 ![Ghant chart](timetable.png)
 
