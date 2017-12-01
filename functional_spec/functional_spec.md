@@ -346,6 +346,10 @@ The operating evironment will be a striped down version of kali linux designed f
 
 ![High level design diagram](HighLevelDesign1.png)
 
+### Communication Diagram
+
+![Communication Diagram](CommunicationDiagram.png)
+
 ### Use Case Diagram
 
 ![Use Case diagram](UseCaseDiagram.png)
