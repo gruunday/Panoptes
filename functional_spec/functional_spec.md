@@ -1,4 +1,5 @@
 # Functional Specification
+## Distributed WiFi Monitoring
 
 ## Table of contents
 
