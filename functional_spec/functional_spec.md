@@ -323,9 +323,19 @@ The operating evironment will be a striped down version of kali linux designed f
 
 ## Non Functional Requirements
 
+### Speed
 * Metrics need to reach the server fast enough to be relevant
+* The system should not clog up the network with traffic as to make the network unusable by normal traffic
+
+### Accuracy
 * Metrics need to accurate when collected
+
+### Ease of use
 * Configuring snort rules needs to be a painless and easy experience
+* The use of functions should be intuitive where possible
+
+### Security
+* The metrics being passed are not thought to be of high security, but in the event they are, steps must be taken to ensure they are secured
 
 ## 4. Constraints
 
