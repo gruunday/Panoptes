@@ -354,6 +354,10 @@ The operating evironment will be a striped down version of kali linux designed f
 
 ![Use Case diagram](UseCaseDiagram.png)
 
+### Data Flow Diagram
+
+![Data Flow Diagram](DataFlowDiagram.png)
+
 ## 7. Preliminary Schedule
 
 ![Ghant chart](timetable.png)
