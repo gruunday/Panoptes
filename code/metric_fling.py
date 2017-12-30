@@ -1,4 +1,4 @@
-# lf!/usr/bin/env python3.6
+# !/usr/bin/env python3.6
 
 from daemon import Daemon
 from datetime import datetime
