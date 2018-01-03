@@ -50,7 +50,7 @@ class Daemon:
         so = open(os.devnull, 'a+')
         se = open(os.devnull, 'a+')
         
-        Duplicate stdout files (org, dup)
+        # Duplicate stdout files (org, dup)
         os.dup2(si.fileno(), sys.stdin.fileno())
         os.dup2(so.fileno(), sys.stdout.fileno())
         os.dup2(se.fileno(), sys.stderr.fileno())
