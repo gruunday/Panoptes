@@ -69,6 +69,7 @@ class Daemon:
 
     def start(self):
         # Start
+        # Open the pid file and if something in there then already running
         try:
             with open(self.pidfile, 'r') as pf:
                 pid = int(pf.read().strip())
@@ -80,6 +81,7 @@ class Daemon:
                                 'Daemon already running?\n')
             sys.exit(1)
 
+        # "real" start
         self.daemonise()
         self.run()
 
