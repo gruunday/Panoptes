@@ -1,9 +1,10 @@
 # !/usr/bin/env python3.6
 
+import sys
+sys.path.append("..")
 from daemon import Daemon
 from metric_fling import Metric_Fling 
 import subprocess
-import sys
 
 class Ssid_Detection(Daemon):
     '''
@@ -72,6 +73,21 @@ class Ssid_Detection(Daemon):
         while True:
             ssids = self.find_ssids()
             self.check_ssids(ssids, known_ssids)
+
+def command(order):
+    spoof = Ssid_Detection('/tmp/ssidDetection.pid')
+    if 'start' == order:
+        spoof.start()
+        print('Started')
+    elif 'restart' == order:
+        spoof.restart()
+        print('Restarted')
+    elif 'stop' == order:
+        spoof.stop()
+        print('Stopped')
+    else:
+        print('Command Unknown')
+        sys.exit(2)
 
 if __name__ == '__main__':
     spoof = Ssid_Detection('/tmp/ssidDetection.pid')
