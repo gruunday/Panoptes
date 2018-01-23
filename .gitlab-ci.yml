@@ -1,6 +1,4 @@
-# This file is a template, and might need editing before it works on your project.
-# This file is a template, and might need editing before it works on your project.
-image: python3.6:latest
+image: python3:latest
 
 before_script:
   - python -V                                   # Print out python version for debugging
