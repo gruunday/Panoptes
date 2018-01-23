@@ -5,7 +5,8 @@ before_script:
 
 test:
   script:
-  - pip install -r requirements.txt
+  - pip3 -V
+  - pip3 install -r requirements.txt
  
   
 run:
