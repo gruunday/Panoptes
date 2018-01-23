@@ -1,4 +1,4 @@
-image: python3:latest
+image: alpine3.6:latest
 
 before_script:
   - python -V                                   # Print out python version for debugging
