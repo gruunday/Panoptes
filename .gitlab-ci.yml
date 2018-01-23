@@ -1,4 +1,4 @@
-image: 3.6-alpine3.6
+image: python36
 
 before_script:
   - python -V                                   # Print out python version for debugging
