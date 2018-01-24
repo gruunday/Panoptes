@@ -3,7 +3,8 @@
 import sys
 sys.path.append("..")
 from daemon import Daemon
-from metric_fling import Metric_Fling 
+from metric_fling import Metric_Fling
+from alert import slack_alert
 import subprocess
 
 class Ssid_Detection(Daemon):
@@ -57,16 +58,11 @@ class Ssid_Detection(Daemon):
             if ssid in known_ssids:
                 known_macs = known_ssids[ssid]
                 if found_ssids[ssid] not in known_macs:
-                    self.alert(f'MAC Address {found_ssids[ssid]} ' +
+                    self.send_alert(f'MAC Address {found_ssids[ssid]} ' +
                             f'is not known for reserved SSID {ssid}')
     
-    # Stub to test
-    def alert(self, message):
-        fi = open("/var/log/panoptes/ssid_test_log.txt","a+")
-        fi.write('*' * (len(message) + 4) + '\n')
-        fi.write(f'* {message} * \n')
-        fi.write('*' * (len(message) + 4) + '\n')
-        fi.close()
+    def send_alert(self, message):
+        slack_alert(message)
 
     def run(self):
         known_ssids = self.read_config() # ADD read in config name
