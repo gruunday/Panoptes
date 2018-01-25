@@ -27,3 +27,7 @@ $ ./install.sh
 * [X] To stop daemons call ```$ ./panoptes.py stop```
 * [X] To restart daemons call ```$ ./panoptes.py restart```
 
+### Plugins created
+
+* [X] Ssid detection - Detects ssids spoofing trusted ones
+* [X] Metric fling   - Exports metrics to graphite database
