@@ -29,7 +29,7 @@ class readmeTestCase(unittest.TestCase):
         yield sniff(filter='udp', count=1)
 
     def test_fling_ip(self):
-        pkt = sniffer()
+        pkt = self.sniffer()
         while not pkt:
            self.flinger.fling('testing...')
         real_dst = pkt[0][IP].dst
@@ -37,7 +37,7 @@ class readmeTestCase(unittest.TestCase):
                             'Desination of metric is wrong')
  
     def test_fling_port(self):
-        pkt = sniffer
+        pkt = self.sniffer()
         while not pkt:
             self.flinger.fling('testing...')
         real_port = pkt[0][UDP].dport
