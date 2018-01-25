@@ -1,5 +1,6 @@
 """Test Module; Tests metric_fling daemon."""
 
+sys.path.append("..")
 from metric_fling import Metric_Fling
 import random
 import string
