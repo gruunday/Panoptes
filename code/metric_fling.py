@@ -11,7 +11,7 @@ class Metric_Fling(Daemon):
         Class to follow a log file and send metrics to graphite server
     '''
 
-    def __init__(self, pidf, lf, cs = 'ohphuck.me', cp = 2003):
+    def __init__(self, pidf, lf, cs = 'panoptes.xyz', cp = 2003):
         Daemon.__init__(self, pidf)
         self.carbon_server = cs
         self.carbon_port   = cp
@@ -23,6 +23,10 @@ class Metric_Fling(Daemon):
     def fling(self, message):
         self.sock.sendto(bytes(message, "utf-8"), \
                             (self.carbon_server, self.carbon_port))
+
+    # Disconnect from server
+    def disconnect(self):
+        self.sock.close()
 
     # Follow a log file like tail -f
     def follower(self, f):
