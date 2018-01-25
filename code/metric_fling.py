@@ -10,7 +10,7 @@ class Metric_Fling(Daemon):
     '''
         Class to follow a log file and send metrics to graphite server
     '''
-
+                                # Stub put in config so can be changed easy
     def __init__(self, pidf, lf, cs = 'panoptes.xyz', cp = 2003):
         Daemon.__init__(self, pidf)
         self.carbon_server = cs
