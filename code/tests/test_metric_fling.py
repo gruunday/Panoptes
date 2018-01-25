@@ -26,21 +26,22 @@ class readmeTestCase(unittest.TestCase):
                             'Read of file was not equal to what was written')
 
     def sniffer(self):
-        yield sniff(filter='udp', count=1)
+        pkt = sniff(filter='udp', count=1)
+        yield (pkt[0][IP].dst, pkt[0][UDP].dport)
 
     def test_fling_ip(self):
-        pkt = self.sniffer()
-        while not pkt:
+        dest = tuple(self.sniffer())
+        while not dest:
            self.flinger.fling('testing...')
-        real_dst = pkt[0][IP].dst
+        real_dst = dest[0]
         self.assertEqual('145.239.79.126', real_dst, \
                             'Desination of metric is wrong')
  
     def test_fling_port(self):
-        pkt = self.sniffer()
-        while not pkt:
+        dest = tuple(self.sniffer())
+        while not dest:
             self.flinger.fling('testing...')
-        real_port = pkt[0][UDP].dport
+        real_port = dest[1]
         self.assertEqual('2003', real_port, \
                             'Destination port for metric is wrong')   
     
