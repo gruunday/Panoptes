@@ -13,6 +13,7 @@ setup:
 test:
   script:
   # run the command here 
+  - cd code
   - python3.6 -m unittest discover -v
   artifacts:
     paths:
