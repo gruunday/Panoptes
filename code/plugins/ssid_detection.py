@@ -74,15 +74,15 @@ def command(order):
     spoof = Ssid_Detection('/tmp/ssidDetection.pid')
     if 'start' == order:
         spoof.start()
-        print('Started')
+        return 'Started'
     elif 'restart' == order:
         spoof.restart()
-        print('Restarted')
+        return 'Restarted'
     elif 'stop' == order:
         spoof.stop()
-        print('Stopped')
+        return 'Stopped'
     else:
-        print('Command Unknown')
+        return 'Command Unknown'
         sys.exit(2)
 
 if __name__ == '__main__':
