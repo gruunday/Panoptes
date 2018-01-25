@@ -1,6 +1,8 @@
-# Distributed Wifi Monitoring
+# Distributed Wifi Monitoring aka Panoptes
 
 ## Project to collect and graph critical information about a wifi network.
+
+[![pipeline status](https://gitlab.computing.dcu.ie/doylet9/2018-CA326-tdoyle-distributedwifimonitoring/badges/master/pipeline.svg)](https://gitlab.computing.dcu.ie/doylet9/2018-CA326-tdoyle-distributedwifimonitoring/commits/master)
 
 ## Team members
 
