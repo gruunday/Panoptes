@@ -2,6 +2,7 @@
 
 import os
 import imp
+import sys
 
 def lst_plugins(directory='plugins'):
     for fi in os.listdir(directory):
@@ -10,9 +11,17 @@ def lst_plugins(directory='plugins'):
         path = os.path.join(directory, fi)
         yield imp.load_source(fi, path)
 
-def run():
+def run(cmd):
     for plugin in lst_plugins():
-        plugin.command('start')
+        print(plugin)
+        return_val = plugin.command(cmd)
+        if return_val == 'Starting':
+            print(f'{plugin} OK...')
+        else:
+            print(f'{plugin} Not started...')
 
 if __name__ == '__main__':
-    run()
+    if len(sys.argv) > 1:
+        run(sys.argv[1])
+    else:
+        run('start')
