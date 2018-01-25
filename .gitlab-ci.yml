@@ -3,16 +3,10 @@ image: python:3.6
 before_script:
   - python -V                                   # Print out python version for debugging
 
-setup:
-  script:
-  - cd code
-  - pip3 install --upgrade setuptools
-  - pip3 install -r requirements.txt
- 
-  
 test:
   script:
-  # run the command here 
+  - pip3 install --upgrade setuptools
+  - pip3 install -r requirements.txt
   - cd code
   - python3.6 -m unittest discover -v
   artifacts:
