@@ -17,6 +17,7 @@
 
 ```
 $ git clone https://gitlab.computing.dcu.ie/doylet9/2018-CA326-tdoyle-distributedwifimonitoring.git
+$ cd 2018-CA326-tdoyle-distributedwifimonitoring/code/
 $ chmod +x install.sh
 $ ./install.sh
 ```
