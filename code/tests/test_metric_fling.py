@@ -1,13 +1,11 @@
 """Test Module; Tests metric_fling daemon."""
 
 import os
-import sys
-sys.path.append("..")
 from metric_fling import Metric_Fling
-import random
-import string
-from scapy.all import *
 from multiprocessing.pool import ThreadPool
+import random
+from scapy.all import *
+import string
 import unittest
 
 class Metric_Fling_TestCase(unittest.TestCase):
@@ -32,9 +30,6 @@ class Metric_Fling_TestCase(unittest.TestCase):
         dest = pool.apply_async(self.flinger.test_fling)
         pkt = sniff(filter='udp and host 145.239.79.126', count=1)
         real_dst = pkt[0][IP].dst
-        #real_dst = dest[0][0]
-        print(pkt[0].show())
-        print(pkt[0].summary())
         self.assertEqual('145.239.79.126', real_dst, \
                             'Desination of metric is wrong')
  
