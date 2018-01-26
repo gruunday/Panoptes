@@ -10,7 +10,7 @@ from scapy.all import *
 from multiprocessing.pool import ThreadPool
 import unittest
 
-class readmeTestCase(unittest.TestCase):
+class Metric_Fling_TestCase(unittest.TestCase):
     """Test Case class for metric_fling daemon"""
     def setUp(self):
         self.flinger = Metric_Fling('/tmp/metricfling.pid', 'test_metric.log')
@@ -34,6 +34,7 @@ class readmeTestCase(unittest.TestCase):
         real_dst = pkt[0][IP].dst
         #real_dst = dest[0][0]
         print(pkt[0].show())
+        print(pkt[0].summary())
         self.assertEqual('145.239.79.126', real_dst, \
                             'Desination of metric is wrong')
  
