@@ -28,6 +28,11 @@ class Metric_Fling(Daemon):
     def disconnect(self):
         self.sock.close()
 
+    # For testing fling function
+    def test_fling(self):
+        while True:
+            self.fling('Testing...')
+
     # Follow a log file like tail -f
     def follower(self, f):
         f.seek(0,2)

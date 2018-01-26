@@ -7,6 +7,7 @@ from metric_fling import Metric_Fling
 import random
 import string
 from scapy.all import *
+from multiprocessing.pool import ThreadPool
 import unittest
 
 class readmeTestCase(unittest.TestCase):
@@ -25,25 +26,24 @@ class readmeTestCase(unittest.TestCase):
         self.assertNotEqual(secret, return_secret, \
                             'Read of file was not equal to what was written')
 
-    def sniffer(self):
-        pkt = sniff(filter='udp', count=1)
-        yield (pkt[0][IP].dst, pkt[0][UDP].dport)
-
     def test_fling_ip(self):
-        dest = tuple(self.sniffer())
-        while not dest:
-           self.flinger.fling('testing...')
-        real_dst = dest[0]
+        """Test Case B. IP correct dest"""
+        pool = ThreadPool(processes=1)
+        dest = pool.apply_async(self.flinger.test_fling)
+        pkt = sniff(filter='udp and host 145.239.79.126', count=1)
+        real_dst = pkt[0][IP].dst
+        #real_dst = dest[0][0]
         self.assertEqual('145.239.79.126', real_dst, \
                             'Desination of metric is wrong')
  
     def test_fling_port(self):
-        dest = tuple(self.sniffer())
-        while not dest:
-            self.flinger.fling('testing...')
-        real_port = dest[1]
-        self.assertEqual('2003', real_port, \
-                            'Destination port for metric is wrong')   
+        """Test Case C. Port correct dest port"""
+        pool = ThreadPool(processes=1)
+        dest = pool.apply_async(self.flinger.test_fling)
+        pkt = sniff(filter='udp and host 145.239.79.126', count=1)
+        real_port = pkt[0][UDP].dport
+        self.assertEqual(self.flinger.carbon_port, real_port, \
+                            'Desination port of metric is wrong is {real_port}')
     
     def tearDown(self):
         self.flinger.disconnect()
@@ -54,7 +54,7 @@ class readmeTestCase(unittest.TestCase):
 
 if __name__ == '__main__':
     setUp()
+    test_readlog()
     test_fling_ip()
     test_fling_port()
-    test_readlog()
     tearDown()
