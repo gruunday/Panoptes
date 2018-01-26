@@ -33,6 +33,7 @@ class readmeTestCase(unittest.TestCase):
         pkt = sniff(filter='udp and host 145.239.79.126', count=1)
         real_dst = pkt[0][IP].dst
         #real_dst = dest[0][0]
+        print(pkt[0].show())
         self.assertEqual('145.239.79.126', real_dst, \
                             'Desination of metric is wrong')
  
