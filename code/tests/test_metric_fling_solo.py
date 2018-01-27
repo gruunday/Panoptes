@@ -15,7 +15,7 @@ class Metric_Fling_TestCase(unittest.TestCase):
         os.system('python3.6 metric_fling.py start')
         aux_out = str(sp.check_output(['ps','aux'])).count('python3.6 metric_fling.py')
         self.assertGreaterEqual(aux_out, 1, 'Start test failed')
-        print(str(sp.check_output(['ps','aux'])).count('metric'))
+        print(str(sp.check_output(['ps','aux'])))
 
         # Restart system
         os.system('python3.6 metric_fling.py restart')
