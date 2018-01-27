@@ -47,8 +47,8 @@ class Daemon:
         sys.stdout.flush()
         sys.stderr.flush()
         si = open(os.devnull, 'r')
-        so = open(os.devnull, 'a+')
-        se = open(os.devnull, 'a+')
+        so = open('/var/log/panoptes/system.log', 'a+')
+        se = open('/var/log/panoptes/system.log', 'a+')
         
         # Duplicate stdout files (org, dup)
         os.dup2(si.fileno(), sys.stdin.fileno())
