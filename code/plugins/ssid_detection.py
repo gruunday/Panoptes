@@ -1,7 +1,7 @@
 # !/usr/bin/env python3.6
 
 import sys
-sys.path.append("..")
+sys.path.append('/'.join(sys.path[0].split('/')[0:-1]))
 from daemon import Daemon
 from metric_fling import Metric_Fling
 from alert import slack_alert
@@ -11,7 +11,6 @@ class Ssid_Detection(Daemon):
     '''
         Class to detect a reservered ssid comming from an unkown mac address
     '''
-
     def __init__(self, pidf):
         Daemon.__init__(self, pidf)
 
@@ -38,7 +37,13 @@ class Ssid_Detection(Daemon):
 
     # Reads in config file
     def read_config(self):
-        f = open('/etc/panoptes/known_ssids.txt', 'r')
+        try:
+            f = open('/etc/panoptes/known_ssids.txt', 'r')
+        except FileNotFoundError:
+            f = open('/var/log/panoptes.log', 'a+')
+            f.write('Error! Could not open /etc/known_ssid.txt')
+            f.close()
+            sys.exit(2)
         known_ssids = {}
         for line in f.readlines():
             line = line.split(';')

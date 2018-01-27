@@ -1,7 +1,10 @@
-image: python:3.6
+image: kalilinux/kali-linux-docker
 
 before_script:
-  - python -V                                   # Print out python version for debugging
+  - apt update && apt install python3.6 -y && apt install python3-pip -y
+  - python3.6 -V                                   # Print out python version for debugging
+  - mkdir /var/log/panoptes/
+  - mkdir /etc/panoptes/
 
 test:
   script:
