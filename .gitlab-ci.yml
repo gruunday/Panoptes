@@ -2,7 +2,7 @@ image: kalilinux/kali-linux-docker
 
 before_script:
   - apt update && apt install python3.6 -y
-  - python -V                                   # Print out python version for debugging
+  - python3.6 -V                                   # Print out python version for debugging
 
 test:
   script:
