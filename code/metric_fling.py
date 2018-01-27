@@ -1,4 +1,4 @@
-# !/usr/bin/env python3.6
+#!/usr/bin/env python3.6
 
 from daemon import Daemon
 from datetime import datetime
@@ -44,7 +44,11 @@ class Metric_Fling(Daemon):
             yield line
 
     def run(self):
-        lf = open(self.log_file, 'r')
+        try:
+            lf = open(self.log_file, 'r')
+        except FileNotFoundError as e:
+            sys.stdout.write(f'\n\n\nFileNotFound: {e}\n')
+            sys.exit(1)
         loglines = self.follower(lf)
         for metric in loglines:
             self.fling(metric)
@@ -61,7 +65,7 @@ if __name__ == '__main__':
             print('restarted')
         elif 'stop' == sys.argv[1].lower():
             metric_fling.stop()
-            print('Stoped')
+            print('Stopped')
         else:
             print('Command Unknown')
             sys.exit(2)

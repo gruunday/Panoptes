@@ -41,7 +41,8 @@ class Metric_Fling_TestCase(unittest.TestCase):
         real_port = pkt[0][UDP].dport
         self.assertEqual(self.flinger.carbon_port, real_port, \
                             'Desination port of metric is wrong is {real_port}')
-    
+
+
     def tearDown(self):
         self.flinger.disconnect()
         try:

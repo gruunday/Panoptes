@@ -94,7 +94,7 @@ class Daemon:
 
         if not pid:
             sys.stderr.write(f'pidfile {self.pidfile} does not exist.' + \
-                                ' Daemon not running?\n')
+                                        ' Daemon not running?\n')
             return # won't be an error in restart
 
         # Try killing the daemon process
