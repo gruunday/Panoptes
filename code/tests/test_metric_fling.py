@@ -37,6 +37,7 @@ class Metric_Fling_TestCase(unittest.TestCase):
         for i in range(0,4):
             f = open(log, 'w+')
             f.write(secret)
+            print('wrote')
             f.close()
             time.sleep(1)
 
