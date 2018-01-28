@@ -3,6 +3,7 @@
 import os
 from metric_fling import Metric_Fling
 from multiprocessing.pool import ThreadPool
+import threading
 import random
 from scapy.all import *
 import string
@@ -15,14 +16,29 @@ class Metric_Fling_TestCase(unittest.TestCase):
 
     def test_readlog(self):
         """Test case A. Can we read log"""
+        log = '/tmp/test_metric.log'
+        # Gen secret 
         N = random.randint(0,100)
-        secret = ''.join(random.choices(string.ascii_uppercase, k=N))
-        f = open('test_metric.log', 'w+')
-        f.write(secret)
-        return_secret = self.flinger.follower(f)
+        secret = ''.join(random.choices(string.ascii_uppercase, k=N)) + '\n'
+        # Start thread to write while we listen
+        write = threading.Thread(target=self.writer, args=(log, secret))
+        write.start()
+        # Listen for secret
+        f = open(log, 'r')
+        secret_file = self.flinger.follower(f)
+        for return_secret in secret_file:
+            self.assertEqual(secret, return_secret, \
+                                'Read of file was not equal to what was written')
+            break
         f.close()
-        self.assertNotEqual(secret, return_secret, \
-                            'Read of file was not equal to what was written')
+   
+    # Helper to write secret to log file
+    def writer(self, log, secret):
+        for i in range(0,2):
+            f = open(log, 'w+')
+            f.write(secret)
+            f.close()
+            time.sleep(1)
 
     def test_fling_ip(self):
         """Test Case B. IP correct dest"""
