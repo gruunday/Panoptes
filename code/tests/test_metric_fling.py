@@ -38,7 +38,7 @@ class Metric_Fling_TestCase(unittest.TestCase):
             f = open(log, 'w+')
             f.write(secret)
             f.close()
-            time.sleep(.5)
+            time.sleep(1)
 
     def test_fling_ip(self):
         """Test Case B. IP correct dest"""
