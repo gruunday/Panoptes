@@ -34,11 +34,11 @@ class Metric_Fling_TestCase(unittest.TestCase):
    
     # Helper to write secret to log file
     def writer(self, log, secret):
-        for i in range(0,2):
+        for i in range(0,4):
             f = open(log, 'w+')
             f.write(secret)
             f.close()
-            time.sleep(1)
+            time.sleep(.5)
 
     def test_fling_ip(self):
         """Test Case B. IP correct dest"""
