@@ -12,7 +12,7 @@ test:
   - pip3 install -r requirements.txt
   - pip3 install coverage 
   - cd code
-  - echo "slack_token = \"$slack_token\"\nslack_channel = \"#random\"" > config.py # Build config with environment variable
+  - echo -e "slack_token = \"$slack_token\"\nslack_channel = \"#random\"" > config.py # Build config with environment variable
   - python3.6 -m unittest discover -v
   - coverage run --source=. -m unittest discover -v
   - coverage report -m
