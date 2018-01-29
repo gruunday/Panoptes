@@ -40,7 +40,7 @@ class Ssid_Detection(Daemon):
         try:
             f = open('/etc/panoptes/known_ssids.txt', 'r')
         except FileNotFoundError:
-            f = open('/var/log/panoptes.log', 'a+')
+            f = open('/var/log/panoptes/system.log', 'a+')
             f.write('Error! Could not open /etc/known_ssid.txt')
             f.close()
             sys.exit(2)
@@ -78,11 +78,11 @@ class Ssid_Detection(Daemon):
 def command(order):
     spoof = Ssid_Detection('/tmp/ssidDetection.pid')
     if 'start' == order:
+        return 'Starting'
         spoof.start()
-        return 'Started'
     elif 'restart' == order:
-        spoof.restart()
         return 'Restarted'
+        spoof.restart()
     elif 'stop' == order:
         spoof.stop()
         return 'Stopped'
@@ -94,11 +94,11 @@ if __name__ == '__main__':
     spoof = Ssid_Detection('/tmp/ssidDetection.pid')
     if len(sys.argv) >= 2:
         if 'start' == sys.argv[1].lower():
+            print('Starting')
             spoof.start()
-            print('Started')
         elif 'restart' == sys.argv[1].lower():
-            spoof.restart()
             print('Restarted')
+            spoof.restart()
         elif 'stop' == sys.argv[1].lower():
             spoof.stop()
             print('Stopped')
