@@ -12,6 +12,3 @@ class Metric_Fling_TestCase(unittest.TestCase):
     def test_alert(self):
         """Test Case D Alerts"""
         slack_alert('Build Testing Alerts')
-
-if __name__ == '__main__':
-    test_alert()
