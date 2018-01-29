@@ -38,6 +38,7 @@ class Metric_Fling_TestCase(unittest.TestCase):
             f = open(log, 'w+')
             f.write(secret)
             print('wrote')
+            time.sleep(1)
             f.close()
 
     def test_fling_ip(self):
