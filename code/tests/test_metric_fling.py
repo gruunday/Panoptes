@@ -12,7 +12,7 @@ import unittest
 class Metric_Fling_TestCase(unittest.TestCase):
     """Test Case class for metric_fling daemon"""
     def setUp(self):
-        self.flinger = Metric_Fling('/tmp/metricfling.pid', 'test_metric.log')
+        self.flinger = Metric_Fling('test_metric.log') #'/tmp/metricfling.pid', 'test_metric.log')
 
 #    def test_readlog(self):
 #        """Test case A. Can we read log"""
@@ -58,7 +58,6 @@ class Metric_Fling_TestCase(unittest.TestCase):
         self.assertEqual(self.flinger.carbon_port, real_port, \
                             'Desination port of metric is wrong is {real_port}')
 
-
     def tearDown(self):
         self.flinger.disconnect()
         try:
@@ -66,9 +65,3 @@ class Metric_Fling_TestCase(unittest.TestCase):
         except FileNotFoundError:
             pass # Explicitly silent
 
-if __name__ == '__main__':
-    setUp()
-    test_readlog()
-    test_fling_ip()
-    test_fling_port()
-    tearDown()
