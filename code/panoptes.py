@@ -3,6 +3,7 @@
 import os
 import imp
 import sys
+import subprocess
 
 def lst_plugins(directory='plugins'):
     for fi in os.listdir(directory):
@@ -27,11 +28,18 @@ def main():
     # Check wifi card is in monitor mode
     ## TODO check if already in monitor mode
     ## TODO check if there is more than one card
-    #try:
-    #    os.system('ifconfig wlan1 down')
-    #    os.system('iwconfig wlan1 mode monitor')
-    #except:
-    #    print('Can\'t change wireless card to monitor mode')
+    mode = subprocess.check_output(['iw', 'dev'])
+    mode = mode.decode('utf-8').split('\n')[5].strip().split()[1]
+    if mode != 'monitor':
+        try:
+            device = subprocess.check_output(['iw','dev'])
+            device = device.decode('utf-8').split('\n')[0].replace('#','')
+            os.system(f'iw phy {device} interface add mon1 type monitor')
+            os.system('iw dev wlan1 del')
+            os.system('ifconfig mon1 up')
+            print('Wireless card in monitor mode')
+        except:
+            print('Can\'t change wireless card to monitor mode')
     
     # Check args
     if len(sys.argv) > 1:
