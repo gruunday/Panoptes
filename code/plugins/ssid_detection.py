@@ -21,9 +21,6 @@ class Ssid_Detection(Daemon):
         if pkt.haslayer(Dot11ProbeResp) or pkt.haslayer(Dot11Beacon):
             ssid = pkt[Dot11Elt].info.decode('utf-8')
             mac = pkt[Dot11].addr3
-            f = open('/var/log/isitworking.txt', 'a+')
-            f.write(ssid + mac + '\n')
-            f.close()
             if (ssid in self.known_ssids) and (mac not in self.known_ssids[ssid]):
                 self.send_alert(f'{ssid} was found with unknown mac {mac}')
     
