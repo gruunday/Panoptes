@@ -11,17 +11,16 @@ class Metric_Fling():
     '''
                                 # Stub put in config so can be changed easy
                                 # If cs is not ip will fail test but work irl
-    def __init__(self, lf, cs = '145.239.79.126', cp = 2003):
-        self.carbon_server = cs
-        self.carbon_port   = cp
-        self.log_file      = lf
-        self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    def __init__(self, cs='panoptes.xyz',cp=2003):
+        self.addr = (cs, cp)
                                   # INET = INTERNET | DGRAM = UDP
         
     # Sends message
     def fling(self, message):
-        self.sock.sendto(bytes(message, "utf-8"), \
-                            (self.carbon_server, self.carbon_port))
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        self.sock.connect(('panoptes.xyz', 2003))
+        self.sock.sendall(message.encode('utf-8'))
+        self.sock.close()
 
     # Disconnect from server
     def disconnect(self):
