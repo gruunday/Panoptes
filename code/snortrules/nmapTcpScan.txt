@@ -1,0 +1,1 @@
+alert tcp any any -> "ip address"(msg:"NMAP TCP Scan";sid:10000005;rev:2;)
