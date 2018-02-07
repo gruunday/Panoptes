@@ -7,6 +7,7 @@ from metric_fling import Metric_Fling
 from alert import slack_alert
 from scapy.all import *
 import subprocess
+import platform
 import time
 
 class Ap_Metrics(Daemon):
@@ -15,7 +16,8 @@ class Ap_Metrics(Daemon):
     '''
     def __init__(self, pidf):
         Daemon.__init__(self, pidf)
-        self.metric = Metric_Fling('/tmp/ap_metric_flinger.pid')
+        self.metric = Metric_Fling()
+        self.data = []
 
     # Is packet from an access pints
     def is_ap(self, pkt):
@@ -23,21 +25,23 @@ class Ap_Metrics(Daemon):
             ssid = pkt[Dot11Elt].info.decode('utf-8')
             mac = pkt[Dot11].addr3
             signal = int(pkt[RadioTap].dbm_antsignal)
-            # TODO add hostname to start of path to handle multiple nodes
-            path = 'accesspoint.metric.signal.'
+            path = f'{platform.node()}.accesspoint.metric.signal'
             # Export as both to do queries based on both 
-            #self.metric.fling(f'{path}{mac} {signal} {time.time()}')
-            #self.metric.fling(f'{path}{ssid} {int(signal)} {time.time()}')
-            self.metric.fling(f'main.go 4 {time.time()}')
+            self.data.append(f'\n{path}.{mac} {signal} {time.time()}\n')
+            self.data.append(f'\n{path}.{ssid}.{mac} {signal} {time.time()}\n')
+            # Ensure that metrics **START AND END** with new lines
+            # It will ##NOT## work without it
             
-    # Sniff packets in monitor mdoe
+    # Sniff packets needs monitor mode, set in panoptes
     def find_ap(self):
-        pkt = sniff(iface='mon1',count=300,prn=self.is_ap)
+        pkt = sniff(iface='mon1',count=500,prn=self.is_ap)
 
     def run(self):
         while True:
             self.find_ap()
-            time.sleep(10)
+            self.metric.tcp_fling(self.data)
+            self.data = []
+            time.sleep(3)
 
 # How panoptes controls daemon
 def command(order):
