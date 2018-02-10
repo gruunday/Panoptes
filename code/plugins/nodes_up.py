@@ -37,21 +37,3 @@ def command(order):
         return 'Command Unknown'
         sys.exit(2)
 
-if __name__ == '__main__':
-    stats = System_Stats('/tmp/systemStats.pid')
-    if len(sys.argv) >= 2:
-        if 'start' == sys.argv[1].lower():
-            print('Starting')
-            stats.start()
-        elif 'restart' == sys.argv[1].lower():
-            print('Restarted')
-            stats.restart()
-        elif 'stop' == sys.argv[1].lower():
-            stats.stop()
-            print('Stopped')
-        else:
-            print('Command Unknown')
-            sys.exit(2)
-    else:
-        print(f'Usage: {sys.argv[0]} start|stop|restart')
-        sys.exit(2)
