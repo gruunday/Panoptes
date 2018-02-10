@@ -7,9 +7,9 @@ from metric_fling import Metric_Fling
 import platform
 import time
 
-class System_Stats(Daemon):
+class Nodes_Up(Daemon):
     '''
-        Class to monitor system stats
+        Class to monitor nodes running
     '''
     def __init__(self, pidf):
         Daemon.__init__(self, pidf)
@@ -18,22 +18,21 @@ class System_Stats(Daemon):
     def run(self):
         while True:
             metric = f'\n{platform.node()}.isup 1 {time.time()}\n' 
-            self.metric.tcp_fling(metric)
+            self.metric.fling(metric)
             time.sleep(60)
 
 # How panoptes controls daemon
 def command(order):
-    stats = System_Stats('/tmp/systemStats.pid')
+    stats = Nodes_Up('/tmp/nodesUp.pid')
     if 'start' == order:
         return 'Starting'
         stats.start()
     elif 'restart' == order:
-        return 'Restarted'
         stats.restart()
+        return 'Restarted'
     elif 'stop' == order:
         stats.stop()
         return 'Stopped'
     else:
-        return 'Command Unknown'
         sys.exit(2)
 
