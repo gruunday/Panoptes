@@ -6,18 +6,18 @@ class GOODNAME_TestCase(unittest.TestCase):
     """Test GOODNAME"""
 
     # Setup for testing
-    def setup(self):
+    def setUp(self):
         pass
 
     def test_SMALLPIECE(self):
-        """Test Nodes up start"""
+        """Test SMALLPIECE"""
         self.assertEqual(True, True)
  
     def test_OTHERPIECE(self):
-        """Test Nodes up restart"""
+        """Test OTHERPIECE"""
         with self.assertRaises(SystemExit) as cm:
             command(Exit)
 
     # Clean up
-    def teardown(self):
+    def tearDown(self):
         pass
