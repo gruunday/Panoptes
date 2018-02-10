@@ -28,6 +28,13 @@
 > We also need an interface in managed mode to pass metrics about the device back to the server. For this reason we are using a Alfa networking card with a Ralink Technology, Corp. RT2870/RT3070 chipset and the driver on that chip at the time of development is rt2800usb. For outages and doggy wifi zones the ethernet port on the raspberry pi can be used and will failover in the event of wifi going down. This can also be configured as the primary way to send metrics. 
 > Because what we are doing is detering hackers, we must employ the use of tools the hackers use. So we are using a linux distrbution for the raspberry pi operating system called kali (previously known as backtrack). 
 
+#### 2.1 Language Choice
+
+> Python is a very easy to read language with many nice features including the scapy library
+> Python 2 is being depricated in 2020 so we felt this was not an option, even though it has a better track record with working with byte strings 
+> Python 3.6 has new features such as f-strings that would clean up our code, it has much improved on it's handling of byte strings and it has over come it's speed problem to pass out python 2.7 in speed. 
+> For the reasons mentioned above pyton 3.6.4 was the winner and what was decided to develop the project in.
+
 ## 3. High-Level Design
 
 ## 4. Problems and Resolution
