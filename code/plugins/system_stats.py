@@ -16,9 +16,14 @@ class System_Stats(Daemon):
         self.metric = Metric_Fling()
 
     def get_loadavg(self):
-        f = open('/proc/loadavg', 'r')
-        data = f.read().strip().split()[:3]
-        f.close()
+        try:
+            f = open('/proc/loadavg', 'r')
+            data = f.read().strip().split()[:3]
+            f.close()
+        except OSError as e:
+            f = open('/var/log/panoptes/system.log', 'a+')
+            f.write('{time.time()} {e}')
+            f.close
         return data
 
     def parse(self, data):
@@ -30,20 +35,10 @@ class System_Stats(Daemon):
 
     def run(self):
         while True:
-            try:
-                data = self.get_loadavg()
-                data = self.parse(data)
-                f = open('/var/log/panoptes/working.log', 'a+')
-                f.write(data)
-                f.close()
-                self.metric.tcp_fling(data)
-                time.sleep(10)
-            except Exception as e:
-                f = open('/var/log/panoptes/system.log', 'a+')
-                f.write('Exception occured at')
-                f.write(str(time.time()) + '\n')
-                f.write(e)
-                f.close
+            data = self.get_loadavg()
+            data = self.parse(data)
+            self.metric.tcp_fling(data)
+            time.sleep(60)
 
 # How panoptes controls daemon
 def command(order):
@@ -58,7 +53,6 @@ def command(order):
         stats.stop()
         return 'Stopped'
     else:
-        return 'Command Unknown'
         sys.exit(2)
 
 if __name__ == '__main__':
