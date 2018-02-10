@@ -1,0 +1,40 @@
+# !/usr/bin/env python3.6
+
+import sys
+# Import the folder above 
+sys.path.append('/'.join(sys.path[0].split('/')[0:-1]))
+from daemon import Daemon
+# import metric if you are using it remove if not
+from metric_fling import Metric_Fling
+
+class PLUGIN_TEMPLATE(Daemon):
+    '''
+        PUT YOUR DESCRIPTION HERE
+    '''
+    def __init__(self, pidf):
+        Daemon.__init__(self, pidf)
+        # Uncomment if needed
+        # Delete if not
+        #self.metric = Metric_Fling()
+
+    # Overrides run class in Daemon super class
+    def run(self):
+        while True:
+            # Put what you want your daemon to do in here
+            time.sleep(60)
+
+# How panoptes controls daemon
+def command(order):
+    # Create object of class above and run it 
+    GOODNAME = PLUGIN_TEMPLATE('/tmp/RELEVANTNAME.pid')
+    if order == 'start':
+        return 'Starting'
+        GOODNAME.start()
+    elif order == 'restart':
+        GOODNAME.restart()
+        return 'Restarted'
+    elif order == 'stop':
+        GOODNAME.stop()
+        return 'Stopped'
+    else:
+        sys.exit(2)
