@@ -4,9 +4,6 @@ import sys
 sys.path.append('/'.join(sys.path[0].split('/')[0:-1]))
 from daemon import Daemon
 from metric_fling import Metric_Fling
-from alert import slack_alert
-from scapy.all import *
-import subprocess
 import platform
 import time
 
