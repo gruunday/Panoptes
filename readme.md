@@ -30,5 +30,8 @@ $ ./install.sh
 
 ### Plugins created
 
-* [X] Ssid detection - Detects ssids spoofing trusted ones
-* [X] Metric fling   - Exports metrics to graphite database
+* [X] Ssid detection        - Detects ssids spoofing trusted ones
+* [X] Metric fling          - Exports metrics to graphite database
+* [X] Access Point Metrics  - Collects signal from surrounding access points
+* [X] System Load Average   - Collects load average for nodes
+* [X] Nodes Up              - Reports if a metric is up
