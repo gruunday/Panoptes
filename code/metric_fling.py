@@ -22,7 +22,9 @@ class Metric_Fling():
     def fling(self, message):
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
                                   # INET = INTERNET | DGRAM = UDP
-        sock.sendto(message.encode("utf-8"), self.addr)
+        sock.connect(self.addr)
+        sock.send(message.encode('utf-8'))
+        sock.close()
 
     # Untested should would if sent with tcp. Pickled is more efficent
     # Should consider moving to this function when things are running smoother
@@ -44,5 +46,6 @@ class Metric_Fling():
         
     # For testing fling function
     def test_fling(self):
+        msg = 'Testing...'
         while True:
-            self.fling('Testing...')
+            self.fling(msg)
