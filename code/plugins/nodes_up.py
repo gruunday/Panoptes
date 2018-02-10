@@ -19,7 +19,7 @@ class System_Stats(Daemon):
         while True:
             metric = f'\n{platform.node()}.isup 1 {time.time()}\n' 
             self.metric.tcp_fling(metric)
-            time.sleep(30)
+            time.sleep(60)
 
 # How panoptes controls daemon
 def command(order):
