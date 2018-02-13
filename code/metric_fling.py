@@ -41,7 +41,7 @@ class Metric_Fling():
         sock = socket.socket()
         sock.connect(self.addr)
         for metric in data:
-            sock.sendall(metric.encode())
+            sock.sendall(metric.encode('utf-8'))
         sock.close()
         
     # For testing fling function
