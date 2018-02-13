@@ -40,7 +40,7 @@ class Ping_Metric(Daemon):
             f = open('/var/log/panoptes/system.log', 'a+')
             f.write(f'{path}avg {int(avg)} {time.time()}\n')
             f.close()
-            time.sleep(5)
+            time.sleep(60)
             
 
 # How panoptes controls daemon
