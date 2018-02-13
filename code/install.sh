@@ -15,9 +15,9 @@ if [ ! -d /etc/panoptes/ ]; then
     mkdir /etc/panoptes/
 fi
 
-if [ ! -f config.py ]; then
+if [ ! -f config.json ]; then
     echo "Config.py created"
-    cp config.example config.py
+    cp config.example config.json
 else
     echo "Using old config"
 fi

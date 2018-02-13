@@ -1,2 +1,8 @@
-slack_token = ''
-slack_channel = '#random'
+{
+    "slack" : {
+        "slack_token" : "INSERT_SLACK_KEY",
+        "slack_channel" : "#random",
+        "slack_emoji" : ":robot_face:",
+        "slack_username" : "Panoptes Alerts"
+        }
+}
