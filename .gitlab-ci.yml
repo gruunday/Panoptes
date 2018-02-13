@@ -1,18 +1,19 @@
 image: kalilinux/kali-linux-docker
 
 before_script:
+  # Update kali and install python 3.6
   - apt update && apt install python3.6 -y && apt install python3-pip -y
   - python3.6 -V                                   # Print out python version for debugging
-  - mkdir /var/log/panoptes/
-  - mkdir /etc/panoptes/
 
 test:
   script:
-  - pip3 install --upgrade setuptools
-  - pip3 install -r requirements.txt
   - pip3 install coverage 
   - cd code
+  # Run install script to install panoptes
+  - ./install.sh
+  # Over ride config to add slack token
   - echo -e "slack_token = \"$slack_token\"\nslack_channel = \"#random\"" > config.py # Build config with environment variable
+    # Testing begins here
   - python3.6 -m unittest discover -v
   - coverage run --source=. -m unittest discover -v
   - coverage report -m
