@@ -12,7 +12,8 @@ test:
   # Run install script to install panoptes
   - ./install.sh
   # Over ride config to add slack token
-  - echo -e "slack_token = \"$slack_token\"\nslack_channel = \"#random\"" > config.py # Build config with environment variable
+  - python3.6 insert_token.py $slack_token
+  #- echo -e "slack_token = \"$slack_token\"\nslack_channel = \"#random\"" > config.py # Build config with environment variable
     # Testing begins here
   - python3.6 -m unittest discover -v
   - coverage run --source=. -m unittest discover -v
