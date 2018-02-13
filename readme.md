@@ -35,3 +35,4 @@ $ ./install.sh
 * [X] Access Point Metrics  - Collects signal from surrounding access points
 * [X] System Load Average   - Collects load average for nodes
 * [X] Nodes Up              - Reports if a node is up
+* [X] Ping Metrics          - Reports latency metrics
