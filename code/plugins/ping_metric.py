@@ -8,6 +8,8 @@ from metric_fling import Metric_Fling
 import scapy
 import platform
 import subprocess
+from os import path
+import json
 import time
 
 class Ping_Metric(Daemon):
@@ -17,6 +19,14 @@ class Ping_Metric(Daemon):
     def __init__(self, pidf):
         Daemon.__init__(self, pidf)
         self.metric = Metric_Fling()
+        config = read_config()
+        self.sleeptime = config["ping_metrics"]["sleeptime"]
+
+    def read_config(self):
+        basepath = path.dirname(__file__)
+        config_path = path.abspath(path.join(basepath, "..", "config.json"))
+        with open(config_path) as json_config:
+            return json.load(json_config)
 
     # Pings server for the resonce time
     def ping(self):
@@ -37,10 +47,7 @@ class Ping_Metric(Daemon):
             data += f'{path}max {float(mx)} {time.time()}\n'
             self.metric.tcp_fling(data)
             data = ''
-            f = open('/var/log/panoptes/system.log', 'a+')
-            f.write(f'{path}avg {int(avg)} {time.time()}\n')
-            f.close()
-            time.sleep(60)
+            time.sleep(self.sleeptime)
             
 
 # How panoptes controls daemon

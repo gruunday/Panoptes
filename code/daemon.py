@@ -90,7 +90,11 @@ class Daemon:
     def stop(self):
         try:
             with open(self.pidfile, 'r') as pf:
-                pid = int(pf.read().strip())
+                pid = pf.read().strip()
+                # Needs investigation for some reason
+                # somtimes pid = ''
+                if pid:
+                    pid = int(pid)
                 pf.close()
         except IOError:
             pid = None

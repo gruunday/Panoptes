@@ -7,6 +7,8 @@ from metric_fling import Metric_Fling
 from alert import slack_alert
 from scapy.all import *
 import subprocess
+from os import path
+import json
 
 class Ssid_Detection(Daemon):
     '''
@@ -15,6 +17,18 @@ class Ssid_Detection(Daemon):
     def __init__(self, pidf):
         Daemon.__init__(self, pidf)
         self.known_ssids = {}
+        config = read_config()
+        self.iface = config["ssid_detection"]["interface"]
+        self.pktcount = config["ssid_detection"]["pktcount"]
+        self.errorlog = config["ssid_detection"]["errorlog"]
+        self.ssid_file = config["ssid_detection"]["known_ssids"]
+        self.sleeptime = config["ssid_detection"]["sleeptime"]
+
+    def read_config(self):
+        basepath = path.dirname(__file__)
+        config_path = path.abspath(path.join(basepath, "..", "config.json"))
+        with open(config_path) as json_config:
+            return json.load(json_config)
 
     # Is packet from an access pints
     def is_ap(self, pkt):
@@ -26,14 +40,14 @@ class Ssid_Detection(Daemon):
     
     # Sniff packets in monitor mdoe
     def find_ap(self):
-        pkt = sniff(iface='mon1',count=10000,prn=self.is_ap)
+        pkt = sniff(iface=self.iface,count=self.pktcount,prn=self.is_ap)
 
     # Reads in config file
-    def read_config(self):
+    def read_ssid(self):
         try:
-            f = open('/etc/panoptes/known_ssids.txt', 'r')
+            f = open(self.ssid_file, 'r')
         except FileNotFoundError:
-            f = open('/var/log/panoptes/system.log', 'a+')
+            f = open(self.errorlog, 'a+')
             f.write('Error! Could not open /etc/known_ssid.txt')
             f.close()
             sys.exit(2)
@@ -52,12 +66,12 @@ class Ssid_Detection(Daemon):
         slack_alert(message)
 
     def run(self):
-        self.known_ssids = self.read_config() # ADD read in config name
+        self.known_ssids = self.read_ssids() # ADD read in config name
         while True:
-            self.read_config()
+            self.read_ssid()
             self.find_ap()
             #self.check_ssids(ssids, self.known_ssids)
-            time.sleep(10)
+            time.sleep(self.sleeptime)
 
 # How panoptes controls daemon
 def command(order):

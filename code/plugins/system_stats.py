@@ -5,6 +5,8 @@ sys.path.append('/'.join(sys.path[0].split('/')[0:-1]))
 from daemon import Daemon
 from metric_fling import Metric_Fling
 import platform
+from os import path
+import json
 import time
 
 class System_Stats(Daemon):
@@ -14,6 +16,15 @@ class System_Stats(Daemon):
     def __init__(self, pidf):
         Daemon.__init__(self, pidf)
         self.metric = Metric_Fling()
+        config = self.read_config()
+        self.errorlog = config["system_stats"]["errorlog"]
+        self.sleeptime = config["system_stats"]["sleeptime"]
+
+    def read_config(self):
+        basepath = path.dirname(__file__)
+        config_path = path.abspath(path.join(basepath, "..", "config.json"))
+        with open(config_path) as json_config:
+            return json.load(json_config)
 
     def get_loadavg(self):
         try:
@@ -21,7 +32,7 @@ class System_Stats(Daemon):
             data = f.read().strip().split()[:3]
             f.close()
         except OSError as e:
-            f = open('/var/log/panoptes/system.log', 'a+')
+            f = open(self.errorlog, 'a+')
             f.write('{time.time()} {e}')
             f.close
         return data
@@ -38,7 +49,7 @@ class System_Stats(Daemon):
             data = self.get_loadavg()
             data = self.parse(data)
             self.metric.tcp_fling(data)
-            time.sleep(60)
+            time.sleep(self.sleeptime)
 
 # How panoptes controls daemon
 def command(order):
