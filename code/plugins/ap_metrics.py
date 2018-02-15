@@ -6,6 +6,7 @@ from daemon import Daemon
 from metric_fling import Metric_Fling
 import platform
 import time
+import json
 
 class Ap_Metrics(Daemon):
     '''
@@ -15,6 +16,14 @@ class Ap_Metrics(Daemon):
         Daemon.__init__(self, pidf)
         self.metric = Metric_Fling()
         self.data = []
+        config = self.read_config()
+        self.sleeptime = config["ap_metrics"]["sleeptime"]
+        self.iface = config["ap_metrics"]["interface"]
+        self.pktcount = config["ap_metrics"]["pktcount"]
+
+    def read_config(self):
+        with open('config.json') as json_config:
+            return json.load(json_config)
 
     # Is packet from an access pints
     def is_ap(self, pkt):
@@ -31,14 +40,14 @@ class Ap_Metrics(Daemon):
             
     # Sniff packets needs monitor mode, set in panoptes
     def find_ap(self):
-        pkt = sniff(iface='mon1',count=500,prn=self.is_ap)
+        pkt = sniff(iface=self.iface,count=self.pktcount,prn=self.is_ap)
 
     def run(self):
         while True:
             self.find_ap()
             self.metric.tcp_fling(self.data)
             self.data = []
-            time.sleep(3)
+            time.sleep(self.sleeptime)
 
 # How panoptes controls daemon
 def command(order):

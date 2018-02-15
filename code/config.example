@@ -1,8 +1,24 @@
 {
-    "slack" : {
-        "slack_token" : "INSERT_SLACK_KEY",
-        "slack_channel" : "#random",
-        "slack_emoji" : ":robot_face:",
-        "slack_username" : "Panoptes Alerts"
-        }
+    "slack": {
+        "slack_token": "Insert slack token", 
+        "slack_channel": "#random", 
+        "slack_emoji": ":robot_face:", 
+        "slack_username": "Panoptes Alerts"},
+    "ap_metrics":{
+        "sleeptime" : 3,
+        "interface" : "mon1",
+        "pktcount" : 500},
+    "nodeup" : {
+        "sleeptime" : 60},
+    "system_stats" : {
+        "errorlog" : "/var/log/panoptes/system.log",
+        "sleeptime" : 60},
+    "ssid_detection" : {
+        "interface": "mon1",
+        "pktcount" : 10000,
+        "errorlog" : "/var/log/panoptes/system.log",
+        "known_ssids" : "/etc/panoptes/known_ssids.txt",
+        "sleeptime" : 10},
+    "ping_metrics" : {
+        "sleeptime" : 60}
 }
