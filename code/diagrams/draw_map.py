@@ -2,37 +2,69 @@ import math
 import requests
 from PIL import Image,ImageDraw
 from random import randint
+from random import seed
+from simulated_aneal import simulated_annealing
 
 #import config at later date
 height = 500
 width = 500
+seed(randint(1,1000))
 
-
-class Point():
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
-    
-    def __str__(self):
-        return f'({x}, {y})'
-    
-    def dist(self, other):
-        return math.sqrt((self.x - other.x)**2 + (self.y - other.y)**2)
 
 def point_distance(point, other):
+    #print(point, other)
     return math.sqrt((point[0] - other[0])**2 + (point[1] - other[1])**2)
+
+#def dist_centre(point, centre=(250,250)):
+#    return point_distance(point, centre)
+
+#def dist_order(node_loc):
+#    dists = [(point_distance(node_loc[node][0]), node) for node in node_loc:]
+#    dists.sort()
+
+
+def nice_angle(point, other, centre=(250,250)):
+    a = point_distance(point, centre)
+    b = point_distance(other, centre)
+    c = point_distance(point, other)
+    A = a**2
+    B = b**2 
+    AB = 2 * a * b
+    C = c**2
+    return math.cos(A + B - (AB - C))
+
+def get_angles(node_loc):
+    cost = 0
+    RADIANS = 6.28319
+    ideal_angle = RADIANS / len(node_loc)
+    for node in node_loc:
+        for other in node_loc:
+            if node == other:
+                continue
+            angle = nice_angle(node_loc[node][0], node_loc[other][0])
+            cost += abs(ideal_angle - angle)
+    return cost**2
 
 def too_close(node_loc):
     cost = 0
     # Distance that will be too close
-    min_dist = 20
+    min_dist = 100
     for node in node_loc:
         for other in node_loc:
             if node == other:
                 continue
             dist = point_distance(node_loc[node][0], node_loc[other][0])
             if dist < min_dist:
-                cost = 5 * (100-dist)
+                cost += 200 * (100-dist)
+            # too close to edge
+            if (node_loc[node][0][0] - 500) < min_dist:
+                cost += abs(200 * (0.5 * (node_loc[node][0][0] - 500)))
+            if (node_loc[node][0][1] - 500) < min_dist:
+                cost += abs(200 * (0.5 * (node_loc[node][0][1] - 500)))
+            if (node_loc[node][0][0]) < min_dist:
+                cost += abs(200 * (0.5 * (node_loc[node][0][0])))
+            if (node_loc[node][0][1]) < min_dist:
+                cost += abs(200 * (0.5 * (node_loc[node][0][1])))
     return cost
 
 def off_map(node_lst, h=500, w=500):
@@ -40,15 +72,16 @@ def off_map(node_lst, h=500, w=500):
     for node in node_lst:
         point = node_lst[node][0]
         if point[0] > w or point[0] < 0:
-            cost += 600
+            cost += 500
         if point[1] > h or point[1] < 0:
-            cost += 600
+            cost += 500
     return cost
 
 def cost(node_lst):
     cost = 0
     cost += too_close(node_lst)
     cost += off_map(node_lst)
+    cost += get_angles(node_lst)
     return cost
 
 def get_data():
@@ -97,13 +130,18 @@ def draw_map(point, cost, width=500, height=500):
 
 def main():
     #data = get_data()
+    population = []
     data = ''
     node_lst = get_nodes(data)
-    node_loc = give_points(node_lst)
+    best_guess = give_points(node_lst)
     #print(node_loc)
-    score = cost(node_loc)
-    draw_map(node_loc, score)
+    score = cost(best_guess)
+    draw_map(best_guess, score)
+    ans = simulated_annealing(best_guess, cost)
+    #for graph in population:
+     #   print(graph, cost(graph))
+    score = cost(ans)
+    draw_map(ans, score)
 
 if __name__ == '__main__':
-    for _ in range(0,5):
-        main()
+    main()
