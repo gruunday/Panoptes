@@ -6,6 +6,11 @@ import sys
 import subprocess
 
 def lst_plugins(directory='plugins'):
+    """
+    Lists plugins in a directory to be imported and ran
+
+    :directory: name of directory to be imported
+    """
     for fi in os.listdir(directory):
         if fi.startswith('_'):
             continue
@@ -15,6 +20,11 @@ def lst_plugins(directory='plugins'):
         yield imp.load_source(fi, path)
 
 def run(cmd):
+    """
+    Run will run all the daemons in the directory yielded by lst_plugins
+
+    :cmd: command to be given to the daemon
+    """
     for plugin in lst_plugins():
         return_val = plugin.command(cmd)
         print(f'{str(plugin).split()[1]} ' + return_val)
