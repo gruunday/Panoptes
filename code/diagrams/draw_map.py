@@ -202,7 +202,7 @@ def main():
     # get score of new diagram
     sim_score = cost(ans)
     drawn = False
-    for _ in range(0,1):
+    for _ in range(1):
         if sim_score < 160000:
             draw_map(ans, sim_score)
             drawn = True
