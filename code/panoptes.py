@@ -4,6 +4,8 @@ import os
 import imp
 import sys
 import subprocess
+import argparse
+
 
 def lst_plugins(directory='plugins'):
     """
@@ -30,6 +32,14 @@ def run(cmd):
         print(f'{str(plugin).split()[1]} ' + return_val)
 
 def main():
+    parser=argparse.ArgumentParser(
+        description="""Panoptes, wireless monitoring solution""",
+        epilog="""Panoptes, wireless monitoring solution""")
+    parser.add_argument('start', nargs='*', default=[1, 2, 3], help='Starts all daemons in plugins folder')
+    parser.add_argument('restart', nargs='*', default=[1, 2, 3], help='Restart all daemon in plugins folder')
+    parser.add_argument('stop', nargs='*', default=[1, 2, 3], help='Stop all daemons in plugins folder')
+    args=parser.parse_args()
+
     # Check script run with admin rights
     if os.getuid() != 0:
         print('This script needs root, please run with sudo')
