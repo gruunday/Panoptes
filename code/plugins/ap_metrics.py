@@ -22,11 +22,19 @@ class Ap_Metrics(Daemon):
         self.pktcount = config["ap_metrics"]["pktcount"]
 
     def read_config(self):
+        """
+        Reads in json config files and sets configurable variables
+        """
         with open('config.json') as json_config:
             return json.load(json_config)
 
     # Is packet from an access pints
     def is_ap(self, pkt):
+        """
+        Checks to see if a packet came from an access point
+
+        :pkt: Packet sniffed by scapy
+        """
         if pkt.haslayer(Dot11ProbeResp) or pkt.haslayer(Dot11Beacon):
             ssid = pkt[Dot11Elt].info.decode('utf-8')
             mac = pkt[Dot11].addr3
@@ -40,9 +48,15 @@ class Ap_Metrics(Daemon):
             
     # Sniff packets needs monitor mode, set in panoptes
     def find_ap(self):
+        """
+        Sniff packets comming in to find access point broadcast packets
+        """
         pkt = sniff(iface=self.iface,count=self.pktcount,prn=self.is_ap)
 
     def run(self):
+        """
+        Runs command and controls execution
+        """
         while True:
             self.find_ap()
             self.metric.tcp_fling(self.data)
@@ -51,6 +65,11 @@ class Ap_Metrics(Daemon):
 
 # How panoptes controls daemon
 def command(order):
+    """
+    Recieves command from panoptes to start stop or restart
+
+    :order: string command to decide what to do
+    """
     metric = Ap_Metrics('/tmp/apMetrics.pid')
     if 'start' == order:
         return 'Starting'

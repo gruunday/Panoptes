@@ -25,6 +25,9 @@ class Ssid_Detection(Daemon):
         self.sleeptime = config["ssid_detection"]["sleeptime"]
 
     def read_config(self):
+        """
+        Reads in json config and sets configurable variables
+        """
         basepath = path.dirname(__file__)
         config_path = path.abspath(path.join(basepath, "..", "config.json"))
         with open(config_path) as json_config:
@@ -32,6 +35,11 @@ class Ssid_Detection(Daemon):
 
     # Is packet from an access pints
     def is_ap(self, pkt):
+        """
+        Checks if a packet is from an access point
+
+        :pkt: Packets sniffed by scapy
+        """
         if pkt.haslayer(Dot11ProbeResp) or pkt.haslayer(Dot11Beacon):
             ssid = pkt[Dot11Elt].info.decode('utf-8')
             mac = pkt[Dot11].addr3
@@ -40,10 +48,18 @@ class Ssid_Detection(Daemon):
     
     # Sniff packets in monitor mdoe
     def find_ap(self):
+        """
+        Sniffs packets to find beacon packets from access points
+        """
         pkt = sniff(iface=self.iface,count=self.pktcount,prn=self.is_ap)
 
     # Reads in config file
     def read_ssid(self):
+        """
+        Reads in all known ssids from config
+
+        :raises FileNotFoundError: The config file could not be read/found
+        """
         try:
             f = open(self.ssid_file, 'r')
         except FileNotFoundError:
@@ -63,9 +79,17 @@ class Ssid_Detection(Daemon):
         self.known_ssids = known_ssids
 
     def send_alert(self, message):
+        """
+        Send a slack alert to channel
+
+        :message: String message to send as alert
+        """
         slack_alert(message)
 
     def run(self):
+        """
+        Runs the daemon and controls execution
+        """
         self.known_ssids = self.read_ssids() # ADD read in config name
         while True:
             self.read_ssid()
@@ -75,6 +99,11 @@ class Ssid_Detection(Daemon):
 
 # How panoptes controls daemon
 def command(order):
+    """
+    Recieves orders from panoptes and decides to start stop restart
+    
+    :order: string to start stop or restart
+    """
     spoof = Ssid_Detection('/tmp/ssidDetection.pid')
     if 'start' == order:
         return 'Starting'
