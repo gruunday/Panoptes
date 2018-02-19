@@ -20,12 +20,18 @@ class Nodes_Up(Daemon):
         self.sleeptime = config["nodeup"]["sleeptime"]
 
     def read_config(self):
+        """
+        Reads a json config to set configuable variables
+        """
         basepath = path.dirname(__file__)
         config_path = path.abspath(path.join(basepath, "..", "config.json"))
         with open(config_path) as json_config:
             return json.load(json_config)
 
     def run(self):
+        """
+        Starts the daemons
+        """
         while True:
             metric = f'\n{platform.node()}.isup 1 {time.time()}\n' 
             self.metric.fling(metric)

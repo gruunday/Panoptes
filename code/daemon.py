@@ -15,10 +15,14 @@ class Daemon:
         self.pidfile = pidf
 
     def daemonise(self):
-        ''' 
-            Fork twice to stop zombie processes 
-            Stackoverflow 881388
-        '''
+        """ 
+        Create daemon form proccess
+
+        Fork twice to stop zombie processes 
+        Stackoverflow 881388
+
+        :raises OSError: Fork failed
+        """
         try:
             pid = os.fork()
             if pid > 0:
@@ -66,11 +70,18 @@ class Daemon:
             f.close()
 
     def delpid(self):
+        """
+        Delete pid file
+        """
         os.remove(self.pidfile)
 
     def start(self):
-        # Start
-        # Open the pid file and if something in there then already running
+        """
+        Start the deamon
+        Open the pid file and if something in there then already running
+
+        :raises IOError: If there is no pid
+        """
         try:
             with open(self.pidfile, 'r') as pf:
                 pid = int(pf.read().strip())
@@ -88,6 +99,12 @@ class Daemon:
         self.run()
 
     def stop(self):
+        """
+        Stop the daemon
+
+        :raises IOError: If there is no pid
+        :raises OSError: If there is no process to kill
+        """
         try:
             with open(self.pidfile, 'r') as pf:
                 pid = pf.read().strip()
@@ -119,9 +136,16 @@ class Daemon:
                 sys.exit(1)
     
     def restart(self):
+        """
+        Restart daemon
+
+        :raises *: Everything start and stop would raise
+        """
         self.stop()
         self.start()
 
     def run(self):
-        # Overide
+        """
+        Other daemons override
+        """
         return
