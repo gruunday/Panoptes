@@ -19,7 +19,7 @@ class Ping_Metric(Daemon):
     def __init__(self, pidf):
         Daemon.__init__(self, pidf)
         self.metric = Metric_Fling()
-        config = read_config()
+        config = self.read_config()
         self.sleeptime = config["ping_metrics"]["sleeptime"]
 
     def read_config(self):

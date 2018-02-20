@@ -17,7 +17,7 @@ class Ssid_Detection(Daemon):
     def __init__(self, pidf):
         Daemon.__init__(self, pidf)
         self.known_ssids = {}
-        config = read_config()
+        config = self.read_config()
         self.iface = config["ssid_detection"]["interface"]
         self.pktcount = config["ssid_detection"]["pktcount"]
         self.errorlog = config["ssid_detection"]["errorlog"]
