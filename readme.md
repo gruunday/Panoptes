@@ -12,6 +12,7 @@
 ### Dependencies
 
 * Python **3.6** or higher
+* Pip3 for repository
 
 ### How to install
 
