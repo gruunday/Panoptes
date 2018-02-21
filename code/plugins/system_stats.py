@@ -21,12 +21,20 @@ class System_Stats(Daemon):
         self.sleeptime = config["system_stats"]["sleeptime"]
 
     def read_config(self):
+        """
+        Read in config values from json config to set configurable variables
+        """
         basepath = path.dirname(__file__)
         config_path = path.abspath(path.join(basepath, "..", "config.json"))
         with open(config_path) as json_config:
             return json.load(json_config)
 
     def get_loadavg(self):
+        """
+        Reads /proc/loadavg file to find the systems load average for 1min 5min 10min
+
+        :raises OSError: file could not be read
+        """
         try:
             f = open('/proc/loadavg', 'r')
             data = f.read().strip().split()[:3]
@@ -38,6 +46,11 @@ class System_Stats(Daemon):
         return data
 
     def parse(self, data):
+        """
+        Formats data recived from file to graphite metric format
+
+        :data: list of strings to be formatted
+        """
         path = f'\n{platform.node()}.system.loadavg.'
         loadagv_metric_string = f'{path}1min {data[0]} {time.time()}\n'
         loadagv_metric_string += f'{path}5min {data[1]} {time.time()}\n'
@@ -45,6 +58,9 @@ class System_Stats(Daemon):
         return loadagv_metric_string
 
     def run(self):
+        """
+        Runs the daemon controls funcitonality
+        """
         while True:
             data = self.get_loadavg()
             data = self.parse(data)
@@ -53,6 +69,9 @@ class System_Stats(Daemon):
 
 # How panoptes controls daemon
 def command(order):
+    """
+    Starts the daemon from panoptes
+    """
     stats = System_Stats('/tmp/systemStats.pid')
     if 'start' == order:
         return 'Starting'

@@ -19,10 +19,13 @@ class Ping_Metric(Daemon):
     def __init__(self, pidf):
         Daemon.__init__(self, pidf)
         self.metric = Metric_Fling()
-        config = read_config()
+        config = self.read_config()
         self.sleeptime = config["ping_metrics"]["sleeptime"]
 
     def read_config(self):
+        """
+        Reads config from json files and sets configurable vaiables
+        """
         basepath = path.dirname(__file__)
         config_path = path.abspath(path.join(basepath, "..", "config.json"))
         with open(config_path) as json_config:
@@ -30,6 +33,9 @@ class Ping_Metric(Daemon):
 
     # Pings server for the resonce time
     def ping(self):
+        """
+        Requests ping from os and returns times
+        """
         ret = subprocess.check_output( \
                 ['ping','-W','1','-c','3','145.239.79.126'])
         ret = ret.decode()
@@ -38,6 +44,9 @@ class Ping_Metric(Daemon):
 
     # Overrides run class in Daemon super class
     def run(self):
+        """
+        Runs the daemon and controls execution
+        """
         while True:
             path = f'\n{platform.node()}.ping.'
             mi, avg, mx = self.ping()
@@ -52,6 +61,11 @@ class Ping_Metric(Daemon):
 
 # How panoptes controls daemon
 def command(order):
+    """
+    Recieves order and executes comand given by panoptes
+
+    :order: string given by panoptes to start stop or restart
+    """
     # Create object of class above and run it 
     pinger = Ping_Metric('/tmp/pingMetric.pid')
     if order == 'start':
