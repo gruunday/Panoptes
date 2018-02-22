@@ -60,12 +60,13 @@ def main():
             print('Wireless card in monitor mode')
         except:
             print('Can\'t change wireless card to monitor mode')
-    
-    # Check args
-    if len(sys.argv) > 1:
-        run(sys.argv[1])
-    else:
-        run('start')
 
+     # /etc/init how handles this
+#    # Check args
+#    if len(sys.argv) > 1:
+#        run(sys.argv[1])
+#    else:
+#        run('start')
+#
 if __name__ == '__main__':
     main()
