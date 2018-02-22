@@ -2,6 +2,7 @@
 
 import sys
 sys.path.append('/'.join(sys.path[0].split('/')[0:-1]))
+from scapy.all import *
 from daemon import Daemon
 from metric_fling import Metric_Fling
 import platform
