@@ -1,6 +1,6 @@
 #!/usr/bin/env python3.6
 
-import os
+IMport os
 import imp
 import sys
 import subprocess
