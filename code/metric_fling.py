@@ -54,7 +54,15 @@ class Metric_Fling():
         :data: strings to be sent to grapite server
         """
         sock = socket.socket()
-        sock.connect(self.addr)
+        connected = False
+        while not connected:
+            try:
+                sock.connect(self.addr)
+                connected = True
+            except Excepion as e:
+                with open('/var/log/panoptes/system.log', 'a+') as f:
+                    f.write('Connecting with metric fling had problems {e}\n')
+                sys.exit(758)
         for metric in data:
             sock.sendall(metric.encode('utf-8'))
         sock.close()
