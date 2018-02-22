@@ -34,7 +34,7 @@ class Nodes_Up(Daemon):
         """
         while True:
             metric = f'\n{platform.node()}.isup 1 {time.time()}\n' 
-            self.metric.fling(metric)
+            self.metric.tcp_fling(metric)
             time.sleep(self.sleeptime)
 
 # How panoptes controls daemon
