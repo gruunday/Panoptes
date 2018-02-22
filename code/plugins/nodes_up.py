@@ -52,3 +52,18 @@ def command(order):
     else:
         sys.exit(2)
 
+if __name__ == '__main__':
+    order = sys.argv[1]
+    stats = Nodes_Up('/tmp/nodesUp.pid')
+    if 'start' == order:
+        print('Starting')
+        stats.start()
+    elif 'restart' == order:
+        stats.restart()
+        print('Restarted')
+    elif 'stop' == order:
+        stats.stop()
+        print('Stopped')
+    else:
+        print('Unknown command given')
+        sys.exit(2)
