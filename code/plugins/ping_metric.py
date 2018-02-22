@@ -79,3 +79,16 @@ def command(order):
         return 'Stopped'
     else:
         sys.exit(2)
+
+
+if __name__ == '__main__':
+    order = sys.argv[1]
+    pinger = Ping_Metric('/tmp/pingMetric.pid')
+    if order == 'start':
+        pinger.start()
+    elif order == 'restart':
+        pinger.restart()
+    elif order == 'stop':
+        pinger.stop()
+    else:
+        sys.exit(2)
