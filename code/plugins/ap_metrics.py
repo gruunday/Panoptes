@@ -52,7 +52,12 @@ class Ap_Metrics(Daemon):
         """
         Sniff packets comming in to find access point broadcast packets
         """
-        pkt = sniff(iface=self.iface,count=self.pktcount,prn=self.is_ap)
+        try:
+            pkt = sniff(iface=self.iface,count=self.pktcount,prn=self.is_ap)
+        except OSError as e:
+            with open('/var/log/panoptes/system.log', 'a+') as f:
+                f.write(f'Error, interface not ready')
+                time.sleep(5)
 
     def run(self):
         """

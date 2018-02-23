@@ -1,23 +1,35 @@
 #!/bin/bash 
 
 echo "Installing requirements.."
-
 pip3 install --upgrade setuptools
 pip3 install -r ../requirements.txt
 
+# Make executable
 chmod +x panoptes.py
 
+# If the directory does not exist make it
 if [ ! -d /var/log/panoptes/ ]; then
     mkdir /var/log/panoptes/
 fi
 
+# If the directory does not exist make it
 if [ ! -d /etc/panoptes/ ]; then
     mkdir /etc/panoptes/
 fi
 
+# Create config from example
 if [ ! -f config.json ]; then
     echo "Config.py created"
-    cp config.example config.json
+    cp resources/config.example config.json
 else
     echo "Using old config"
 fi
+
+# Copy the code to /etc/pantopes
+cp -r ../code/* /etc/panoptes/
+
+cd /etc/panoptes
+
+# Add to start on boot
+cp resources/panoptes /etc/init.d/
+update-rc.d panoptes defaults

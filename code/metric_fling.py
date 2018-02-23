@@ -59,10 +59,10 @@ class Metric_Fling():
             try:
                 sock.connect(self.addr)
                 connected = True
-            except Excepion as e:
-                with open('/var/log/panoptes/system.log', 'a+') as f:
-                    f.write('Connecting with metric fling had problems {e}\n')
-                sys.exit(758)
+            except Exception as e:
+                # This is expected when the script runs before
+                # We have set up the interface and connected to internet
+                pass
         for metric in data:
             sock.sendall(metric.encode('utf-8'))
         sock.close()

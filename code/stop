@@ -1,0 +1,6 @@
+#!/bin/bash
+
+python3.6 plugins/packet_stats.py stop
+python3.6 plugins/system_stats.py stop
+python3.6 plugins/ping_metric.py stop
+python3.6 plugins/ap_metrics.py stop

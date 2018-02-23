@@ -1,0 +1,29 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:		Panoptes
+# Required-Start:	$remote_fs $syslog
+# Required-Stop:	$remote_fs $syslog
+# Default-Start:	2 3 4 5
+# Default-Stop:		
+# Short-Description:	Start metric daemons for panoptes
+### END INIT INFO
+
+set -e
+case "$1" in 
+  start)
+    cd /etc/panoptes/
+    #cd /root/Desktop/2018-CA326-tdoyle-distributedwifimonitoring/code/
+    /usr/bin/python3.6 panoptes.py
+    /bin/bash start
+    ;;
+  stop)
+    /bin/bash stop
+    ;;
+  *)
+    exit 1
+    ;; 
+
+esac
+
+exit 0
