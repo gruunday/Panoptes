@@ -58,7 +58,7 @@ class Packet_Stats(Daemon):
                 self.find_ap()
         except Exception as e:
             f = open('/var/log/panoptes/system.log', 'a+')
-            f.write(f'{e}\n')
+            f.write(f'Ap_metrics has encountered a problem {e}\n')
             f.close()
 
 # How panoptes controls daemon
