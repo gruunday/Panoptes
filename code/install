@@ -32,4 +32,4 @@ cd /etc/panoptes
 
 # Add to start on boot
 cp resources/panoptes /etc/init.d/
-update-rc.d /etc/panoptes defaults
+update-rc.d panoptes defaults
