@@ -36,10 +36,15 @@ class Ping_Metric(Daemon):
         """
         Requests ping from os and returns times
         """
-        ret = subprocess.check_output( \
+        try:
+            ret = subprocess.check_output( \
                 ['ping','-W','1','-c','3','145.239.79.126'])
-        ret = ret.decode()
-        mi, avg, mx, mdev = ret.split()[-2].split('/')
+            ret = ret.decode()
+            mi, avg, mx, mdev = ret.split()[-2].split('/')
+        except subprocess.CalledProcessError:
+            # This error will occur because the script has not connected
+            # to the internet. This is fine and expected
+            pass
         return mi, avg, mx
 
     # Overrides run class in Daemon super class
@@ -49,15 +54,16 @@ class Ping_Metric(Daemon):
         """
         while True:
             path = f'\n{platform.node()}.ping.'
-            mi, avg, mx = self.ping()
-
-            data = f'{path}min {float(mi)} {time.time()}\n'
-            data += f'{path}avg {float(avg)} {time.time()}\n'
-            data += f'{path}max {float(mx)} {time.time()}\n'
-            self.metric.tcp_fling(data)
-            data = ''
-            time.sleep(self.sleeptime)
-            
+            try:
+                mi, avg, mx = self.ping()
+                data = f'{path}min {float(mi)} {time.time()}\n'
+                data += f'{path}avg {float(avg)} {time.time()}\n'
+                data += f'{path}max {float(mx)} {time.time()}\n'
+                self.metric.tcp_fling(data)
+                data = ''
+                time.sleep(self.sleeptime)
+            except Exception:
+                pass
 
 # How panoptes controls daemon
 def command(order):
@@ -86,9 +92,13 @@ if __name__ == '__main__':
     pinger = Ping_Metric('/tmp/pingMetric.pid')
     if order == 'start':
         pinger.start()
+        print('Starting')
     elif order == 'restart':
         pinger.restart()
+        print('Restarting')
     elif order == 'stop':
         pinger.stop()
+        print('Stoping')
     else:
+        print('Bad argument given')
         sys.exit(2)
