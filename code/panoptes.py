@@ -1,6 +1,6 @@
 #!/usr/bin/env python3.6
 
-IMport os
+import os
 import imp
 import sys
 import subprocess
@@ -41,9 +41,9 @@ def main():
     args=parser.parse_args()
 
     # Check script run with admin rights
-    if os.getuid() != 0:
-        print('This script needs root, please run with sudo')
-        sys.exit(1)
+    #if os.getuid() != 0:
+    #    print('This script needs root, please run with sudo')
+    #    sys.exit(1)
 
     # Check wifi card is in monitor mode
     ## TODO check if already in monitor mode
