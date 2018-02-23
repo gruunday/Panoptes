@@ -10,7 +10,7 @@ test:
   - pip3 install coverage 
   - cd code
   # Run install script to install panoptes
-  - ./install.sh
+  - ./install
   # Over ride config to add slack token
   - python3.6 insert_token.py $slack_token
   #- echo -e "slack_token = \"$slack_token\"\nslack_channel = \"#random\"" > config.py # Build config with environment variable
