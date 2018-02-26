@@ -20,5 +20,8 @@
         "known_ssids" : "/etc/panoptes/known_ssids.txt",
         "sleeptime" : 10},
     "ping_metrics" : {
-        "sleeptime" : 60}
+        "sleeptime" : 60},
+    "packet_stats": {
+    	"sleeptime" : 1,
+    	"interface": "mon1"}
 }
