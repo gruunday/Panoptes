@@ -15,10 +15,8 @@
         "sleeptime" : 60},
     "ssid_detection" : {
         "interface": "mon1",
-        "pktcount" : 10000,
         "errorlog" : "/var/log/panoptes/system.log",
-        "known_ssids" : "/etc/panoptes/known_ssids.txt",
-        "sleeptime" : 10},
+        "known_ssids" : "/etc/panoptes/known_ssids.txt"}
     "ping_metrics" : {
         "sleeptime" : 60},
     "packet_stats": {

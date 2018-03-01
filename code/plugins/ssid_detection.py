@@ -19,7 +19,6 @@ class Ssid_Detection(Daemon):
         self.known_ssids = {}
         config = self.read_config()
         self.iface = config["ssid_detection"]["interface"]
-        self.pktcount = config["ssid_detection"]["pktcount"]
         self.errorlog = config["ssid_detection"]["errorlog"]
         self.ssid_file = config["ssid_detection"]["known_ssids"]
         self.sleeptime = config["ssid_detection"]["sleeptime"]
@@ -38,7 +37,7 @@ class Ssid_Detection(Daemon):
         """
         Checks if a packet is from an access point
 
-        :pkt: Packets sniffed by scapy
+        :pkt: Packet sniffed by scapy
         """
         if pkt.haslayer(Dot11ProbeResp) or pkt.haslayer(Dot11Beacon):
             ssid = pkt[Dot11Elt].info.decode('utf-8')
@@ -51,7 +50,7 @@ class Ssid_Detection(Daemon):
         """
         Sniffs packets to find beacon packets from access points
         """
-        pkt = sniff(iface=self.iface,count=self.pktcount,prn=self.is_ap)
+        pkt = sniff(iface=self.iface,prn=self.is_ap)
 
     # Reads in config file
     def read_ssid(self):
@@ -94,8 +93,6 @@ class Ssid_Detection(Daemon):
         while True:
             self.read_ssid()
             self.find_ap()
-            #self.check_ssids(ssids, self.known_ssids)
-            time.sleep(self.sleeptime)
 
 # How panoptes controls daemon
 def command(order):
