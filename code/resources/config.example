@@ -16,7 +16,7 @@
     "ssid_detection" : {
         "interface": "mon1",
         "errorlog" : "/var/log/panoptes/system.log",
-        "known_ssids" : "/etc/panoptes/known_ssids.txt"}
+        "known_ssids" : "/etc/panoptes/known_ssids.txt"},
     "ping_metrics" : {
         "sleeptime" : 60},
     "packet_stats": {
