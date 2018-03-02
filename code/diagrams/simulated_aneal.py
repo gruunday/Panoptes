@@ -2,6 +2,13 @@ import random as rand
 import math
 
 def small_change(best_guess, space=500, max_step=50):
+    """
+    Make small random changes to the points
+
+    :best_guess: list of nodes and their point locations
+    :space: Square size of canvas
+    :max_step: how big of a jump do we allow
+    """
     #take into account dict
     #print(best_guess['anam'])
     for node in best_guess:
@@ -32,12 +39,23 @@ def small_change(best_guess, space=500, max_step=50):
     return best_guess
 
 def simulated_annealing(best_guess, cost, space=500, initial_T=100.0, final_T=0.1, cooling_rate=0.99, max_step=50):
+    """
+    Takes a guess and will apply a simulated annealing algorithm to improve on the guess
+
+    :best_guess: List of nodes and point locations
+    :cost: function to calculate how good a solution is 
+    :space: square size of canvas
+    :inital_T: our initial starting temperature
+    :final_T: temerature we should stop at
+    :cooling_rate: how fast does the cooling happen every time
+    :max_step: how much do we want to change the diagram each time
+    """
 
     for step in range(max_step, 0, -1):
         T = initial_T
 
         while T > final_T:
-            # Choose a node
+            # Make a new solution
             new = small_change(best_guess, space, step)
 
             # Check if it is better
