@@ -6,9 +6,11 @@
        1.1 Overview
        1.2 Glossary
    2. System Architecture
+       2.1 Language Choice
    3. High-Level Design
    4. Problems and Resolution
    5. Installation Guide
+   6. Functional Breakdown
 
 ## 1. Introduction
 
@@ -38,16 +40,32 @@
 
 ## 3. High-Level Design
 
+> The high-level design of this project is a small amount of python software (this project) running on kali linux on a raspberry pi. This software will collect metrics about the network and alert us to any malisious activity on the network. 
+> One wireless card will be enabled for sniffing packets from the air in monitor mode
+> There is another built-in wireless card for sending metrics 
+> There is also an ethernet port for more reliable sending of metrics
+
+> Software design we have decided that with pythons concurency problems we will be running each plugin as a daemon. This will allow the operating system to manage all the resource handling.
+> There will be a central config to tune each of the plugins so that they can be run more or less often, depends one what the end user cares about.
+
+> Metrics will be sent to a time series database called graphite at a remote or local location. This will then be queried by grafana and our own diagram creator, to create visuals of the data.
+> This is how the end user will interact with the data
+> They can also configure alerts easily with an alert module. Slack notifications are working currently.
+> Grafana will also issue alerts on graphs to a range of channels.
+
 ## 4. Problems and Resolution
 
-> Metrics when sent with UDP to graphite do not show up in graphite but they do with TCP. This is still to be investigated further but the resoution is to use tcp for sending metrics. To optimise this workaround we plan to send metrics as a batch pickeled to avoid congesting wifi traffic with the monitoring system.
+> * Metrics when sent with UDP to graphite do not show up in graphite but they do with TCP. This is still to be investigated further but the resoution is to use tcp for sending metrics. To optimise this workaround we plan to send metrics as a batch pickeled to avoid congesting wifi traffic with the monitoring system.
 
 > When testing metric fling we are trying to send a metric and also catch that metric going across the wire to the server. To do this we have had to create a work around where a thread sends metric on a loop and scapy will sniff and stop on the first one that matches a filter of what that metric should look like. More checks are then done on that packet, i.e. destination port. While this testing method is not ideal we are confident it the capablility of it catching most errors
 
 > While attempting to test the restart method for daemons the daemon will fork away from unittest causing errors. It is not known how this will be tested or it will be a redesign of how the restart method is implemented but it is a known defect.
+
+> With the panoptes.py file, we could not get all the daemons to be started at once. The main method would only start one at a time, therefore we came up with a bash solution, this is definatly not ideal but it works for now. It does not do automatic importing like the python script did but we feel this is a minor set back. With more time we feel we could maybe figure something tidier out but currently time is a lugsury we do not have. We believe the cause to be again the case that when we call the daemon file it forks itself away from the python process and the python proccess then ends. We are not 100% sure on this however and would like to revisit at a later date.
 
 > While trying to have automatic deployment from our repo (i.e every time there is a merge to master and tests pass we deploy to all raspberry pis) we found difficulty doing this. For one the raspberry pis do not have static ips. This means that we do not know, or want hard coded in what each of their addresses are to send the updates. This means we have to come to a compramise. We will have the pi's go to the repo an d fetch it every few minutes, configurable in the config. This does not come without it's own set of problems though, one of such is each pi will need authorised ssh keys to the repo. There may be a better solution to this again, but we have a lot of issues and this solution will work for the temporary future.
 
 ## 5. Installation Guide
 
 > Insert readme.md before submition 
+
