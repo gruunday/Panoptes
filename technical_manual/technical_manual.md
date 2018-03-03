@@ -14,6 +14,8 @@
 
 ## 1. Introduction
 
+> Almost all businesses nowadays from small to huge provide wifi across their grounds and a lot of this goes over looked in terms of reliability and security. While in some settings the users may be trusted, others like coffee shops users are not trusted. We propose to build a solution that will collect metrics about the performance on a network, identify problems under loads, graph the metrics to see trends, create dynamic diagrams of the network and also detect and alert to malicious activity that may be occuring on the network. 
+
 #### 1.1 Overview
 
 > This project is setting out to be able to monitor wifi networks across and organisation, from small scale like a coffee shop, to large scale in a college campus. We want the nodes to be relitivly cheap and also work well on a large, distributed scale. 
@@ -69,3 +71,69 @@
 
 > Insert readme.md before submition 
 
+## 6. Configuration
+
+#### Example Config
+
+```json
+{
+    "slack": {
+        "slack_token": "SLACK-API-KEY",
+        "slack_channel": "#random",
+        "slack_emoji": ":robot_face:",
+        "slack_username": "Panoptes Alerts"},
+    "ap_metrics":{
+        "sleeptime" : 3,
+        "interface" : "mon1",
+        "pktcount" : 500},
+    "nodeup" : {
+        "sleeptime" : 60},
+    "system_stats" : {
+        "errorlog" : "/var/log/panoptes/system.log",
+        "sleeptime" : 60},
+    "ssid_detection" : {
+        "interface": "mon1",
+        "errorlog" : "/var/log/panoptes/system.log",
+        "known_ssids" : "/etc/panoptes/known_ssids.txt"}
+    "ping_metrics" : {
+        "sleeptime" : 5}
+}
+```
+
+##### slack
+
+This specifies settings for slack messages (used for alerts)
+> **slack_token**: An api key for your slack channel.
+> **slack_channel**: What slack channel do you want you alerts to go to.
+> **slack_emojii**: What emoji will be the character for your slack messenger
+> **slack_username**: Username of the message sender
+
+##### ap_metrics
+
+This specifies settings for ap_metrics plugin
+> **sleeptime**: How often the plugin will run (Seconds)
+> **interface**: What interface will the pllugin use to sniff
+> **pktcount**: How many packets will the plugin sniff before analysing
+
+##### nodeup
+
+This specifies settings for node up, a phone home plugin
+> **sleeptime**: How often plugin runs i.e. How often it reports home (Seconds)
+
+##### system_stats
+
+This specifies setting for collecting metrics about the nodes load
+> **errorlog**: Where the error log will write to
+> **sleeptime**: How often the pluigin runs (Seconds)
+
+##### ssid_detection
+
+This specifies settings for ssid detection plugin
+> **interface**: What interface should we sniff on
+> **errorlog**: Where to write errors to
+> **known_ssids**: Where to read from for known ssids
+
+##### ping_metrics
+
+This specifies settings for ping metrics plugin
+> **sleeptime**: How often to run plugin (Seconds)
