@@ -94,27 +94,6 @@ class Ssid_Detection(Daemon):
             self.read_ssid()
             self.find_ap()
 
-# How panoptes controls daemon
-def command(order):
-    """
-    Recieves orders from panoptes and decides to start stop restart
-    
-    :order: string to start stop or restart
-    """
-    spoof = Ssid_Detection('/tmp/ssidDetection.pid')
-    if 'start' == order:
-        return 'Starting'
-        spoof.start()
-    elif 'restart' == order:
-        return 'Restarted'
-        spoof.restart()
-    elif 'stop' == order:
-        spoof.stop()
-        return 'Stopped'
-    else:
-        return 'Command Unknown'
-        sys.exit(2)
-
 if __name__ == '__main__':
     spoof = Ssid_Detection('/tmp/ssidDetection.pid')
     if len(sys.argv) >= 2:

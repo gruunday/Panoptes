@@ -37,21 +37,6 @@ class Nodes_Up(Daemon):
             self.metric.tcp_fling(metric)
             time.sleep(self.sleeptime)
 
-# How panoptes controls daemon
-def command(order):
-    stats = Nodes_Up('/tmp/nodesUp.pid')
-    if 'start' == order:
-        return 'Starting'
-        stats.start()
-    elif 'restart' == order:
-        stats.restart()
-        return 'Restarted'
-    elif 'stop' == order:
-        stats.stop()
-        return 'Stopped'
-    else:
-        sys.exit(2)
-
 if __name__ == '__main__':
     order = sys.argv[1]
     stats = Nodes_Up('/tmp/nodesUp.pid')

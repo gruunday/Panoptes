@@ -69,27 +69,6 @@ class Ap_Metrics(Daemon):
             self.data = []
             time.sleep(self.sleeptime)
 
-# How panoptes controls daemon
-def command(order):
-    """
-    Recieves command from panoptes to start stop or restart
-
-    :order: string command to decide what to do
-    """
-    metric = Ap_Metrics('/tmp/apMetrics.pid')
-    if 'start' == order:
-        return 'Starting'
-        metric.start()
-    elif 'restart' == order:
-        return 'Restarted'
-        metric.restart()
-    elif 'stop' == order:
-        metric.stop()
-        return 'Stopped'
-    else:
-        return 'Command Unknown'
-        sys.exit(2)
-
 if __name__ == '__main__':
     metric = Ap_Metrics('/tmp/apMetrics.pid')
     if len(sys.argv) >= 2:
