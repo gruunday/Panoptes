@@ -6,31 +6,6 @@ import sys
 import subprocess
 import argparse
 
-
-def lst_plugins(directory='plugins'):
-    """
-    Lists plugins in a directory to be imported and ran
-
-    :directory: name of directory to be imported
-    """
-    for fi in os.listdir(directory):
-        if fi.startswith('_'):
-            continue
-        if not fi.endswith('.py'):
-            continue
-        path = os.path.join(directory, fi)
-        yield imp.load_source(fi, path)
-
-def run(cmd):
-    """
-    Run will run all the daemons in the directory yielded by lst_plugins
-
-    :cmd: command to be given to the daemon
-    """
-    for plugin in lst_plugins():
-        return_val = plugin.command(cmd)
-        print(f'{str(plugin).split()[1]} ' + return_val)
-
 def main():
     parser=argparse.ArgumentParser(
         description="""Panoptes, wireless monitoring solution""",
@@ -39,11 +14,6 @@ def main():
     parser.add_argument('restart', nargs='*', default=[1, 2, 3], help='Restart all daemon in plugins folder')
     parser.add_argument('stop', nargs='*', default=[1, 2, 3], help='Stop all daemons in plugins folder')
     args=parser.parse_args()
-
-    # Check script run with admin rights
-    #if os.getuid() != 0:
-    #    print('This script needs root, please run with sudo')
-    #    sys.exit(1)
 
     # Check wifi card is in monitor mode
     ## TODO check if already in monitor mode
@@ -61,12 +31,15 @@ def main():
         except:
             print('Can\'t change wireless card to monitor mode')
 
-     # /etc/init how handles this
-#    # Check args
-#    if len(sys.argv) > 1:
-#        run(sys.argv[1])
-#    else:
-#        run('start')
-#
+    if sys.argv[-1] == 'start':
+        os.system(f'./start')
+    elif sys.argv[-1] == 'restart':
+        os.system(f'./stop')
+        os.system(f'./start')
+    elif sys.argv[-1] == 'stop':
+        os.system(f'./stop')
+    else:
+        print('Unknown command')
+
 if __name__ == '__main__':
     main()
