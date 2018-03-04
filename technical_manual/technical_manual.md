@@ -96,7 +96,10 @@
         "errorlog" : "/var/log/panoptes/system.log",
         "known_ssids" : "/etc/panoptes/known_ssids.txt"}
     "ping_metrics" : {
-        "sleeptime" : 5}
+        "sleeptime" : 5},
+    "packet_stats" : {
+        "timeout" : 5,
+        "interface": "mon1"}
 }
 ```
 
