@@ -84,15 +84,18 @@ class Daemon:
         """
         try:
             with open(self.pidfile, 'r') as pf:
-                pid = int(pf.read().strip())
-                pf.close()
+                pid = pf.read().strip()
+                #if pf.read().strip() != '':
+                #    pid = pf.read().strip()
+                #else:
+                #    pid = None
         except IOError:
             pid = None
 
         if pid:
             sys.stderr.write(f'pidfile {self.pidfile} already exists.' + \
                                 'Daemon already running?\n')
-            sys.exit(1)
+            sys.exit(7)
 
         # "real" start
         self.daemonise()

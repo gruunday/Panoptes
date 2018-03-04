@@ -2,7 +2,6 @@
 
 import unittest
 from plugins.system_stats import System_Stats
-from plugins.system_stats import command
 
 class System_Stats_TestCase(unittest.TestCase):
     """Test System Stats"""
@@ -26,24 +25,20 @@ class System_Stats_TestCase(unittest.TestCase):
 
     def test04_nodes_up_start(self):
         """Test system stats start"""
-        ans = command('start')
-        self.assertEqual('Starting', ans)
+        with self.assertRaises(SystemExit) as ex:
+            self.stater.start()
+        self.assertEqual(ex.exception.code, 0)
 
     def test05_nodes_up_restart(self):
         """Test system stats restart"""
-        #with self.assertRaises(SystemExit) as cm:
-        #    command('restart')
-        #self.assertEqual(cm.exception.code, 0)
-        ans = command('restart')
-        self.assertEqual('Restarted', ans)
-
+        with self.assertRaises(SystemExit) as cm:
+            self.stater.stop()
+            self.stater.start()
+        self.assertEqual(cm.exception.code, 0)
+       
     def test06_nodes_up_stop(self):
         """Test system stats stop"""
-        ans = command('stop')
-        self.assertEqual('Stopped', ans)
+        self.stater.stop()
 
-    def test07_unknown_command(self):
-        """Test system stats bad command"""
-        with self.assertRaises(SystemExit) as cm:
-            command('hooglety boodlety')
-        self.assertEqual(cm.exception.code, 2)
+    def tearDown(self):
+        self.stater.stop()
