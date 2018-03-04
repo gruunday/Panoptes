@@ -19,6 +19,7 @@ class Packet_Stats(Daemon):
         config = self.read_config()
         self.metric = Metric_Fling()
         self.timeout = config["packet_stats"]["timeout"]
+        self.iface = config["packet_stats"]["interface"]
 
     def read_config(self):
         """
@@ -44,7 +45,7 @@ class Packet_Stats(Daemon):
         """
         Sniffs packets to find beacon packets from access points
         """
-        pkts = sniff(timeout=self.timeout)
+        pkts = sniff(iface=self.iface, timeout=self.timeout)
         tcp, udp, icmp, other = str(pkts).replace('>', '').split()[1:]
         self.parse_metrics(tcp.split(':')[1], udp.split(':')[1],\
                                 icmp.split(':')[1], other.split(':')[1])
