@@ -2,7 +2,7 @@
 
 ### BEGIN INIT INFO
 # Provides:		Panoptes
-# Required-Start:	$remote_fs $syslog
+# Required-Start:	$all
 # Required-Stop:	$remote_fs $syslog
 # Default-Start:	2 3 4 5
 # Default-Stop:		
@@ -12,8 +12,7 @@
 set -e
 case "$1" in 
   start)
-    cd /etc/panoptes/
-    #cd /root/Desktop/2018-CA326-tdoyle-distributedwifimonitoring/code/
+    cd ~/2018-CA326-tdoyle-distributedwifimonitoring/code/
     /usr/bin/python3.6 panoptes.py
     /bin/bash start
     ;;
