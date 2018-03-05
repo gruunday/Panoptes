@@ -41,7 +41,7 @@ class System_Stats(Daemon):
             f.close()
         except OSError as e:
             f = open(self.errorlog, 'a+')
-            f.write('{time.time()} {e}')
+            f.write('Sytem Stats: {time.time()} {e}')
             f.close
         return data
 

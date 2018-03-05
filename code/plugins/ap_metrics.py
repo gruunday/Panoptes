@@ -1,4 +1,4 @@
-# !/usr/bin/env python3.6
+#!/usr/bin/env python3.6
 
 import sys
 sys.path.append('/'.join(sys.path[0].split('/')[0:-1]))
@@ -56,7 +56,7 @@ class Ap_Metrics(Daemon):
             pkt = sniff(iface=self.iface,count=self.pktcount,prn=self.is_ap)
         except OSError as e:
             with open('/var/log/panoptes/system.log', 'a+') as f:
-                f.write(f'Error, interface not ready')
+                f.write(f'Ap_metric: Error, interface not ready')
                 time.sleep(5)
 
     def run(self):
