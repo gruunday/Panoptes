@@ -67,24 +67,6 @@ class System_Stats(Daemon):
             self.metric.tcp_fling(data)
             time.sleep(self.sleeptime)
 
-# How panoptes controls daemon
-def command(order):
-    """
-    Starts the daemon from panoptes
-    """
-    stats = System_Stats('/tmp/systemStats.pid')
-    if 'start' == order:
-        return 'Starting'
-        stats.start()
-    elif 'restart' == order:
-        return 'Restarted'
-        stats.restart()
-    elif 'stop' == order:
-        stats.stop()
-        return 'Stopped'
-    else:
-        sys.exit(2)
-
 if __name__ == '__main__':
     stats = System_Stats('/tmp/systemStats.pid')
     if len(sys.argv) >= 2:

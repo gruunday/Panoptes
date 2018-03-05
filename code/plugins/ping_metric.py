@@ -65,28 +65,6 @@ class Ping_Metric(Daemon):
             except Exception:
                 pass
 
-# How panoptes controls daemon
-def command(order):
-    """
-    Recieves order and executes comand given by panoptes
-
-    :order: string given by panoptes to start stop or restart
-    """
-    # Create object of class above and run it 
-    pinger = Ping_Metric('/tmp/pingMetric.pid')
-    if order == 'start':
-        return 'Starting'
-        pinger.start()
-    elif order == 'restart':
-        pinger.restart()
-        return 'Restarted'
-    elif order == 'stop':
-        pinger.stop()
-        return 'Stopped'
-    else:
-        sys.exit(2)
-
-
 if __name__ == '__main__':
     order = sys.argv[1]
     pinger = Ping_Metric('/tmp/pingMetric.pid')

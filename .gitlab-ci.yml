@@ -16,6 +16,8 @@ test:
   #- echo -e "slack_token = \"$slack_token\"\nslack_channel = \"#random\"" > config.py # Build config with environment variable
     # Testing begins here
   - python3.6 -m unittest discover -v
+    # Clean up after tests
+  - ./stop
   - coverage run --source=. -m unittest discover -v
   - coverage report -m
   artifacts:

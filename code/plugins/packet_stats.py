@@ -62,27 +62,6 @@ class Packet_Stats(Daemon):
                 f.write(f'Packet_Stats plugin has encountered a problem {e}\n')
                 f.close()
 
-# How panoptes controls daemon
-def command(order):
-    """
-    Recieves orders from panoptes and decides to start stop restart
-    
-    :order: string to start stop or restart
-    """
-    pktstats = Packet_Stats('/tmp/packetStats.pid')
-    if 'start' == order:
-        return 'Starting'
-        pktstats.start()
-    elif 'restart' == order:
-        return 'Restarted'
-        pktstats.restart()
-    elif 'stop' == order:
-        pktstats.stop()
-        return 'Stopped'
-    else:
-        return 'Command Unknown'
-        sys.exit(2)
-
 if __name__ == '__main__':
     pktstats = Packet_Stats('/tmp/packetStats.pid')
     if len(sys.argv) >= 2:
