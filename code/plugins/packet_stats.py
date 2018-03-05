@@ -54,13 +54,13 @@ class Packet_Stats(Daemon):
         """
         Runs the daemon and controls execution
         """
-        try:
-            while True:
+        while True:
+            try:
                 self.find_ap()
-        except Exception as e:
-            f = open('/var/log/panoptes/system.log', 'a+')
-            f.write(f'Ap_metrics has encountered a problem {e}\n')
-            f.close()
+            except Exception as e:
+                f = open('/var/log/panoptes/system.log', 'a+')
+                f.write(f'Packet_Stats plugin has encountered a problem {e}\n')
+                f.close()
 
 # How panoptes controls daemon
 def command(order):
