@@ -1,4 +1,5 @@
 import math
+import time
 import requests
 from PIL import Image,ImageDraw
 from random import randint
@@ -184,7 +185,16 @@ def draw_map(point, cost, width=500, height=500):
     # Draw stats
     draw.text((5,490),f'Cost {cost}',(0,0,0))
 
-    img.show() 
+    #img.show() 
+    img.save('/home/greenday/www/diagrams/network.png')
+
+def create_page():
+    f = open('/home/greenday/www/diagrams/index.html', 'w+')
+    f.write('<!doctype html>\n')
+    f.write('<head>\n \t<title>Network Diagram</title>\n </head>')
+    f.write('<body>\n \t <p> \t <img src="network.png" alt="Network Diagram"></p>\n')
+    f.write(f'Last updated: {time.strftime("%a, %d %b %Y %H:%M:%S", time.gmtime())}\n</body>')
+    f.close()
 
 def main():
     #data = get_data()
@@ -218,6 +228,7 @@ def main():
                 simulated_annealing(best_guess, cost)
     if not drawn:
         draw_map(ans, best_score)
+    create_page()
     
 
 if __name__ == '__main__':
