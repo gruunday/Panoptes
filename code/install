@@ -1,6 +1,7 @@
 #!/bin/bash 
 
 echo "Installing requirements.."
+
 pip3 install --upgrade setuptools
 pip3 install -r ../requirements.txt
 
@@ -28,7 +29,23 @@ fi
 # Configure boot file
 # Used "?" for sed seperator here because "/" was 
 # causing problems beacuse appears in the path
-cat resources/panoptes | sed 's?cd\ REPO?cd\ '`pwd`'?' > resources/panoptes
+cat update | sed "s?"cd\ REPO"?"cd\ `pwd`"?" > update
+
+cp update /etc/panoptes/update
+
+# Create a new cron for updates
+# Write out current crontab
+crontab -l > /tmp/panoptes_cron
+# Append new cron into cron file
+echo "* * * * *" /etc/panoptes/update >> /tmp/panoptes_cron
+# Install new cron file
+crontab /tmp/panoptes_cron
+rm /tmp/panoptes_cron
+
+# Configure boot file
+# Used "?" for sed seperator here because "/" was 
+# causing problems beacuse appears in the path
+cat resources/panoptes | sed "s?"cd\ REPO"?"cd\ `pwd`"?" > resources/panoptes
 
 # Add to start on boot
 cp resources/panoptes /etc/init.d/
