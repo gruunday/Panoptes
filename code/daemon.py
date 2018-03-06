@@ -125,9 +125,14 @@ class Daemon:
 
         # Try killing the daemon process
         try:
+            error_count = 0
             while 1:
-                os.kill(pid, signal.SIGTERM)
-                time.sleep(0.1)
+                if error_count < 100:
+                    os.kill(pid, signal.SIGTERM)
+                    time.sleep(0.1)
+                    error_count += 1
+                else:
+                    raise OSError
         except OSError as e:
             err = str(e.args)
             if str(e).find('No such process') > 0:
