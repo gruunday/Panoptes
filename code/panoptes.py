@@ -26,6 +26,7 @@ def main():
         if device[-1] == 'Ralink Technology, Corp. RT2870/RT3070':
             mon_device = device[1]
             mon_name = device[0]
+    print(mon_device, mon_name)
     if mon_device == None:
         with open('/var/log/panoptes/system.log', 'a+') as f:
             f.write('Could not find an interface to monitor on in panotpes')
@@ -35,8 +36,8 @@ def main():
         os.system(f'iw dev {mon_device} del')
         os.system('ifconfig mon1 up')
         print('Wireless card in monitor mode')
-    except:
-        print('Can\'t change wireless card to monitor mode')
+    except Exception as e:
+        print(f'Can\'t change wireless card to monitor mode {e}')
 
 if __name__ == '__main__':
     main()
