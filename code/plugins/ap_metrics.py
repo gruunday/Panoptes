@@ -56,8 +56,8 @@ class Ap_Metrics(Daemon):
             pkt = sniff(iface=self.iface,count=self.pktcount,prn=self.is_ap)
         except OSError as e:
             with open('/var/log/panoptes/system.log', 'a+') as f:
-                f.write(f'Ap_metric: Error, interface not ready')
-                time.sleep(5)
+                f.write(f'Ap_metric: Error, interface not ready\n')
+            time.sleep(10)
 
     def run(self):
         """

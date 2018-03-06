@@ -12,7 +12,7 @@
 set -e
 case "$1" in 
   start)
-    cd ~/2018-CA326-tdoyle-distributedwifimonitoring/code/
+    cd REPO
     /usr/bin/python3.6 panoptes.py
     /bin/bash start
     ;;

@@ -61,6 +61,7 @@ class Packet_Stats(Daemon):
                 f = open('/var/log/panoptes/system.log', 'a+')
                 f.write(f'Packet_Stats plugin has encountered a problem {e}\n')
                 f.close()
+                time.sleep(10)
 
 if __name__ == '__main__':
     pktstats = Packet_Stats('/tmp/packetStats.pid')
