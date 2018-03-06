@@ -20,6 +20,6 @@
     "ping_metrics" : {
         "sleeptime" : 60},
     "packet_stats": {
-    	"sleeptime" : 1,
+    	"timeout" : 1,
     	"interface": "mon1"}
 }
