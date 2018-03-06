@@ -25,10 +25,10 @@ else
     echo "Using old config"
 fi
 
-# Copy the code to /etc/pantopes
-cp -r ../code/* /etc/panoptes/
-
-cd /etc/panoptes
+# Configure boot file
+# Used "?" for sed seperator here because "/" was 
+# causing problems beacuse appears in the path
+cat resources/panoptes | sed 's?cd\ REPO?cd\ '`pwd`'?' > resources/panoptes
 
 # Add to start on boot
 cp resources/panoptes /etc/init.d/
