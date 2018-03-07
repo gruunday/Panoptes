@@ -84,6 +84,8 @@ You can change many things about the project so that is runs to suit your needs.
 
 > You should edit your config.json created after install not the config.example
 
+> You can also edit you hostname in /etc/hostname so that each node has a unique name
+
 #### Example Config
 
 ```json
