@@ -18,28 +18,26 @@ def main():
     # Check wifi card is in monitor mode
     ## TODO check if already in monitor mode
     ## TODO check if there is more than one card
-    mode = subprocess.check_output(['iw', 'dev'])
-    mode = mode.decode('utf-8').split('\n')[5].strip().split()[1]
-    if mode != 'monitor':
-        try:
-            device = subprocess.check_output(['iw','dev'])
-            device = device.decode('utf-8').split('\n')[0].replace('#','')
-            os.system(f'iw phy {device} interface add mon1 type monitor')
-            os.system('iw dev wlan1 del')
-            os.system('ifconfig mon1 up')
-            print('Wireless card in monitor mode')
-        except:
-            print('Can\'t change wireless card to monitor mode')
-
-    if sys.argv[-1] == 'start':
-        os.system(f'./start')
-    elif sys.argv[-1] == 'restart':
-        os.system(f'./stop')
-        os.system(f'./start')
-    elif sys.argv[-1] == 'stop':
-        os.system(f'./stop')
-    else:
-        print('Unknown command')
+    cards = subprocess.check_output(['airmon-ng'])
+    cards = cards.decode('utf-8').split('\n')[3:-2]
+    mon_device = None
+    for device in cards:
+        device = device.split('\t')
+        if device[-1] == 'Ralink Technology, Corp. RT2870/RT3070':
+            mon_device = device[1]
+            mon_name = device[0]
+    print(mon_device, mon_name)
+    if mon_device == None:
+        with open('/var/log/panoptes/system.log', 'a+') as f:
+            f.write('Could not find an interface to monitor on in panotpes')
+        sys.exit(9)
+    try:
+        os.system(f'iw phy {mon_name} interface add mon1 type monitor')
+        os.system(f'iw dev {mon_device} del')
+        os.system('ifconfig mon1 up')
+        print('Wireless card in monitor mode')
+    except Exception as e:
+        print(f'Can\'t change wireless card to monitor mode {e}')
 
 if __name__ == '__main__':
     main()

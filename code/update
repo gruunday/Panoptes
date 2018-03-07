@@ -1,0 +1,9 @@
+#!/bin/bash
+
+cd REPO
+git checkout deploy
+git pull | read ans
+if [ ! $ans = "Already up to date." ]; then
+  ./stop
+  ./start
+fi

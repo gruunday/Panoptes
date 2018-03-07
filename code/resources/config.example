@@ -20,7 +20,7 @@
     "ping_metrics" : {
         "sleeptime" : 60},
     "packet_stats": {
-    	"sleeptime" : 1,
+        "timeout" : 1,
     	"interface": "mon1"},
 	"pushbullet": {
 		"push_device_tokens": ["insert api tokens"]},
