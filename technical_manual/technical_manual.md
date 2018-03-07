@@ -168,7 +168,23 @@ This specifies settings for ping metrics plugin
 
 ### 6.1 Functional 
 
+> For testing we attempted to use a continuous integration model. This did not work out as expected because of difficulties getting a deploy to run. If we were to continue the project further we would add a deploy option to our setup.
+> The setup does contian unittest for most of our code basee. This is run each time we commit in our gitlab-ci. 
+> The container we chose to use is the kali-linux image from docker hub. We chose this image because it was very close to the image that we are running on the raspberry pi, and for testing we wanted it to be as close as possible to the real case. 
+> We didn't run tests for some functions because it depended on physical hardware that we couldn't figure out in the amount of time alloted how to emulate.
+> These plugins were tested by hand ad-hoc instead. 
+> To improve the reproducibility we should have written a script to run locally, but this was put on the back burner in favour of testing by hand, somewhat foolishly.
+
 ### 6.2 Non Functional
 
+#### Speed
+> Speed we definded as "fast enough for the metrics to be relevent". We believe that was have definatly done just that. After booting the raspberry pi within a few seconds metrics are displayed let alone recieved by the the database. One performance hit we are aware of is the fact that our metrics are sent with a tcp packet and not a udp packet.
+> We also tested our system running at multiple different speeds to see how much traffic it would generate compared to the traffic already experienced by the network. The impact was minimal as intended. 
 
+#### Accuracy
+> Accuracy of the data collected had to correct. If the metrics were in accurate then the project would be a failour. We have found that these metrics arrive fast and are accurate. They were mesured by comparing system stats locally and in the graph and both were displaying the same data with minimal delay.
 
+#### Ease of use
+> This can be a bias metric, but we believe that the system is easy to use to a technical audience, which is the audience we were aiming for. At the begining we had no shutdown function and often the pi's filesystem became corrupted. Having to reinstall everything meant that we scripted and documented it, multiple times leaving the setup process quite moderate. 
+> All the plugins can be configured with the main config, and can be easily changed and changed back again.
+> Once configured the system will start again from boot. Therefore if there is a powercut or anything goes wrong, pi's can be turned off and on again and they can run once more.
