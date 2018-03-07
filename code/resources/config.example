@@ -23,7 +23,7 @@
     	"sleeptime" : 1,
     	"interface": "mon1"},
 	"pushbullet": {
-		"push_device_tokens": ["o.ArZjDhiqMuCKjNcKGk2vqQEZMSU4o7FM","o.5gMUcTBP3Xkre7szNylxrDHPiHaib3s5"]},
+		"push_device_tokens": ["insert api tokens"]},
 	"dhcp_rogue_server": {
 		"interface": "mon1",
 		"sleeptime": 60},

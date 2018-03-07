@@ -95,7 +95,7 @@ class arp_Test(Daemon):
 
 
 if __name__ == '__main__':
-    poison = arp_Test('/tmp/arptest3.py')
+    poison = arp_Test('/tmp/arptest3.pid')
     if len(sys.argv) >= 2:
         if 'start' == sys.argv[1].lower():
             print('Starting')
