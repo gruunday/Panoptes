@@ -12,6 +12,8 @@ test:
   # Run install script to install panoptes
   - ./install
   # Over ride config to add slack token
+  - echo $TPB_apikey 
+  - echo $SPB_apikey
   - python3.6 insert_token.py $slack_token $TPB_apikey $SPB_apikey
   #- echo -e "slack_token = \"$slack_token\"\nslack_channel = \"#random\"" > config.py # Build config with environment variable
     # Testing begins here
