@@ -4,7 +4,7 @@ import sys
 sys.path.append('/'.join(sys.path[0].split('/')[0:-1]))
 from daemon import Daemon
 from metric_fling import Metric_Fling
-from alert import slack_alert
+from alert import *
 from scapy.all import *
 import subprocess
 from os import path
@@ -84,6 +84,7 @@ class Ssid_Detection(Daemon):
         :message: String message to send as alert
         """
         slack_alert(message)
+        pushbullet_aler(message)
 
     def run(self):
         """
