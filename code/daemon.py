@@ -140,7 +140,7 @@ class Daemon:
                     os.remove(self.pidfile)
             else:
                 print(err)
-                sys.exit(1)
+                #sys.exit(1)
     
     def restart(self):
         """
