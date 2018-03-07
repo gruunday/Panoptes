@@ -16,6 +16,33 @@
 
 ### How to install
 
+#### Installing the OS
+
+First we need to download the kali linux image from [kali website](https://www.offensive-security.com/kali-linux-arm-images/#1493408272250-e17e9049-9ce8)
+> **Remember** : Never download Kali Linux images from anywhere other than the official sources, and you should go [here](https://docs.kali.org/kali-on-arm/install-kali-linux-arm-raspberry-pi) to see how to verify your image 
+
+Once we have our image we want to write it to and sd card. Insert the sd card into your machine and type
+
+```bash
+$ sudo fdisk -l
+```
+
+Find the disk that is your sd card (should be something like /dev/sdb, but may not) 
+**Warning** Make sure this is not your harddrive and is your sd card, everything will be overwritten
+
+When you have found your card you can write the image to the card with the following command
+
+```bash
+sudo dd if=PATH of=DEST bs=512k
+```
+
+where PATH will be the path to where you downloaded the fie to
+and DEST will be the path to your sd card we found earlier, e.g. /dev/sdb
+
+Now you can remove your sd card pop it in your pi and boot it up. We are gonna need a monitor keyboard and mouse for this next bit
+
+#### Installing the Software on the OS
+
 ```
 $ git clone https://gitlab.computing.dcu.ie/doylet9/2018-CA326-tdoyle-distributedwifimonitoring.git
 $ cd 2018-CA326-tdoyle-distributedwifimonitoring/code/
