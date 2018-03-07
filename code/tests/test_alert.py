@@ -4,11 +4,11 @@ import os
 import subprocess as sp
 import random 
 from time import strftime
-from alert import slack_alert
+from alert import send_alert
 import unittest
 
 class Metric_Fling_TestCase(unittest.TestCase):
     """Test Case class for alerts"""
     def test_alert(self):
         """Test Case D Alerts"""
-        slack_alert('Build Testing Alerts')
+        send_alert('Build Testing Alerts')

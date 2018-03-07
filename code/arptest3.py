@@ -82,8 +82,7 @@ class arp_Test(Daemon):
 
         :message: String message to send as alert
         """
-        pushbullet_aler(message)
-        slack_alert(message)
+        send_alert(message)
 
     def run(self):
         """

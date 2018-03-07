@@ -25,8 +25,9 @@ class Alert():
                     icon_emoji=self.slack_emoji)
 	
     def _pushbullet_alert(self, message):
-        for tocken in self.push_tokens:
-            Pushbullet(token).push_note("Alert", message)
+        if self.push_tokens[0] != "insert api tokens":
+            for tocken in self.push_tokens:
+                Pushbullet(token).push_note("Alert", message)
 		
 
 def send_alert(message):

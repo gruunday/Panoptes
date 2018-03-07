@@ -83,8 +83,7 @@ class Ssid_Detection(Daemon):
 
         :message: String message to send as alert
         """
-        slack_alert(message)
-        pushbullet_aler(message)
+        send_alert(message)
 
     def run(self):
         """
