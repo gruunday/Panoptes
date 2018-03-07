@@ -26,7 +26,7 @@ class Alert():
 	
     def _pushbullet_alert(self, message):
         if self.push_tokens[0] != "insert api tokens":
-            for tocken in self.push_tokens:
+            for token in self.push_tokens:
                 Pushbullet(token).push_note("Alert", message)
 		
 
