@@ -64,11 +64,11 @@ $ ./install.sh
 * If you do not want to reboot you can run them manualy by running the following options
 
 ```bash
-./start # To start all the plugins
+$ ./start # To start all the plugins
 
-./stop  # To stop  all the plugins
+$ ./stop  # To stop  all the plugins
 
-./start && ./stop # To restart all the plugins
+$ ./start && ./stop # To restart all the plugins
 ``` 
 
 > If you do not like, want or need a plugin just move it to another folder
