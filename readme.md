@@ -35,6 +35,7 @@ $ sudo fdisk -l
 ```
 
 Find the disk that is your sd card (should be something like /dev/sdb, but may not) 
+
 **Warning** Make sure this is not your harddrive and is your sd card, everything will be overwritten
 
 When you have found your card you can write the image to the card with the following command
