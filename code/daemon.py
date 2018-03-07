@@ -84,11 +84,11 @@ class Daemon:
         """
         try:
             with open(self.pidfile, 'r') as pf:
-                pid = pf.read().strip()
-                #if pf.read().strip() != '':
-                #    pid = pf.read().strip()
-                #else:
-                #    pid = None
+                #pid = pf.read().strip()
+                if pf.read().strip() != '':
+                    pid = pf.read().strip()
+                else:
+                    pid = None
         except IOError:
             pid = None
 
