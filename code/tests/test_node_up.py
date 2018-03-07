@@ -23,10 +23,6 @@ class Nodes_Up_TestCase(unittest.TestCase):
             self.stats.stop()
             self.stats.start()
         self.assertEqual(cm.exception.code, 0)
-   
-    def test03_nodes_up_stop(self):
-        """Test Nodes stop"""
-        self.stats.stop()
 
     def tearDown(self):
         self.stats.stop()
