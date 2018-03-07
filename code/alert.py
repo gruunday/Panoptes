@@ -24,15 +24,12 @@ class Alert():
                     text=message, username=self.slack_username,
                     icon_emoji=self.slack_emoji)
 	
-    def pushbullet_alert(self, message):
-        for i in self.push_tokens:
-            Pushbullet(i).push_note("alert", message)
+    def _pushbullet_alert(self, message):
+        for tocken in self.push_tokens:
+            Pushbullet(token).push_note("Alert", message)
 		
 
-def slack_alert(message):
+def send_alert(message):
     alert = Alert()
     alert._slack_alert(message)
-	
-def pushbullet_aler(message):
-    alert = Alert()
-    alert.pushbullet_alert(message)
+    alert._pushbullet_alert(message)
