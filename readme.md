@@ -74,8 +74,8 @@ $ ./start && ./stop # To restart all the plugins
 > If you do not like, want or need a plugin just move it to another folder
 
 ```bash
-mkdir bakupPlugins
-mv pluings/example bakupPlugins/example
+$ mkdir bakupPlugins
+$ mv pluings/example bakupPlugins/example
 ```
 
 ### Configuration
