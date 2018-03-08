@@ -241,6 +241,7 @@ This specifies settings for ping metrics plugin
 Testing Highlights
 > To test the plugin metric_fling, we first start a thread of sending packets with metric fling. This tries to catch packets leaving the container to see if the plugin works. This is not exactly right because of the delay we send multiple packets to increase the probability that we catch the packets.
 > To test the plugin ssid_detection, we started our raspberry pi and had it finding beacon packets from access points and then turned on a hotspot. This hot spot was a "protected name" (i.e. one we didn't want anyone else to have on our network) and saw if the ssid_detection send us an alert. This was not tested in the gitlab-ci because of hardware that was needed to run the test and the heavy human element of starting a hotspot physicaly near by.
+> To test the diagram drawer it was a very visual task. The aim of the diagram drawer was to draw graphs with a small amount of nodes to a large amount of nodes and create a graph that was visualy apealing with both. This task had to be performed by a human. We also used mock data for the testing because we didn't have enough nodes to put it through the paces.
 
 ### 6.2 Non Functional
 
