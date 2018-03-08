@@ -164,28 +164,37 @@ $ ./install.sh
 ```json
 {
     "slack": {
-        "slack_token": "SLACK-API-KEY",
+        "slack_token": "Insert slack token",
         "slack_channel": "#random",
         "slack_emoji": ":robot_face:",
         "slack_username": "Panoptes Alerts"},
     "ap_metrics":{
-        "sleeptime" : 3,
+        "sleeptime" : 1,
         "interface" : "mon1",
         "pktcount" : 500},
     "nodeup" : {
-        "sleeptime" : 60},
+        "sleeptime" : 2},
     "system_stats" : {
         "errorlog" : "/var/log/panoptes/system.log",
-        "sleeptime" : 60},
+        "sleeptime" : 2},
     "ssid_detection" : {
         "interface": "mon1",
         "errorlog" : "/var/log/panoptes/system.log",
-        "known_ssids" : "/etc/panoptes/known_ssids.txt"}
+        "known_ssids" : "/etc/panoptes/known_ssids.txt"},
     "ping_metrics" : {
-        "sleeptime" : 5},
-    "packet_stats" : {
-        "timeout" : 5,
-        "interface": "mon1"}
+        "sleeptime" : 1},
+    "packet_stats": {
+        "timeout" : 1,
+        "interface": "mon1"},
+        "pushbullet": {
+                "push_device_tokens": ["insert api tokens"]},
+        "dhcp_rogue_server": {
+                "interface": "mon1",
+                "sleeptime": 2},
+        "arp_Test": {
+                "interface": "mon1",
+                "sleeptime": 1,
+                "maclimit": 2}
 }
 ```
 
