@@ -243,3 +243,288 @@ Testing Highlights
 > This can be a bias metric, but we believe that the system is easy to use to a technical audience, which is the audience we were aiming for. At the begining we had no shutdown function and often the pi's filesystem became corrupted. Having to reinstall everything meant that we scripted and documented it, multiple times leaving the setup process quite moderate. 
 > All the plugins can be configured with the main config, and can be easily changed and changed back again.
 > Once configured the system will start again from boot. Therefore if there is a powercut or anything goes wrong, pi's can be turned off and on again and they can run once more.
+
+### Class Skeletons
+
+#### Daemon.py
+
+```python
+class Daemon:
+    '''
+        Daemon class to be subclasses by all other daemons
+        Based on Sanser Marechal\'s \"Simple linux daemon in python2\"
+    '''
+    def __init__(self, pidf):
+        pass
+
+    def daemonise(self):
+        """ 
+        Create daemon form proccess
+
+        Fork twice to stop zombie processes 
+        Stackoverflow 881388
+
+        :raises OSError: Fork failed
+        """
+
+    def delpid(self):
+        """
+        Delete pid file
+        """
+
+    def start(self):
+        """
+        Start the deamon
+        Open the pid file and if something in there then already running
+
+        :raises IOError: If there is no pid
+        """
+
+    def stop(self):
+        """
+        Stop the daemon
+
+        :raises IOError: If there is no pid
+        :raises OSError: If there is no process to kill
+        """
+
+    def restart(self):
+        """
+        Restart daemon
+
+        :raises *: Everything start and stop would raise
+        """
+
+    def run(self):
+        """
+        Other daemons override
+        """
+        pass
+
+```
+
+#### Metric_fling.py
+
+```python
+class Metric_Fling():
+    '''
+        Class to follow a log file and send metrics to graphite server
+    '''
+    def __init__(self, carbon_server,carbon_port):
+        pass
+
+    def fling(self, message):
+        """
+        Takes a metric string and sends it to graphite server with UDP
+
+        :message: string metric to be sent to graphite server
+        """
+
+    def pickle_fling(self, data):
+        """
+        Take a metric list of strings and pickles them before 
+        sending to graphite server with TCP
+
+        :data: a list of strings to be pickled and sent
+        """
+
+    def tcp_fling(self, data):
+        """
+        take a metric string and send it ro graphite server with TCP
+
+        :data: strings to be sent to grapite server
+        """
+```
+
+#### Nodes_up.py
+
+```python
+class Nodes_Up(Daemon):
+    '''
+        Class to monitor nodes running
+    '''
+    def __init__(self, pidf):
+        pass
+
+    def read_config(self):
+        """
+        Reads a json config to set configuable variables
+        """
+
+    def run(self):
+        """
+        Starts the daemons
+        """
+```
+
+#### Ap_metrics.py
+
+```python
+class Ap_Metrics(Daemon):
+    '''
+        Class to collect metrics on access points
+    '''
+    def __init__(self, pidf):
+        pass
+
+    def read_config(self):
+        """
+        Reads in json config files and sets configurable variables
+        """
+
+    def is_ap(self, pkt):
+        """
+        Checks to see if a packet came from an access point
+
+        :pkt: Packet sniffed by scapy
+        """
+
+    def find_ap(self):
+        """
+        Sniff packets comming in to find access point broadcast packets
+        """
+
+    def run(self):
+        """
+        Runs command and controls execution
+        """
+```
+#### packet_stats.py
+
+```python
+class Packet_Stats(Daemon):
+    '''
+        Class to collect stats about packets
+    '''
+    def __init__(self, pidf):
+        pass
+
+    def read_config(self):
+        """
+        Reads in json config and sets configurable variables
+        """
+
+    def parse_metrics(self, tcp, udp, icmp, other):
+        """
+        Formats and send metrics to graphite server
+        """
+
+    def find_ap(self):
+        """
+        Sniffs packets to find beacon packets from access points
+        """
+
+    def run(self):
+        """
+        Runs the daemon and controls execution
+        """
+```
+
+#### ping_metric.py
+
+```python
+class Ping_Metric(Daemon):
+    '''
+        Test latecy in network
+    '''
+    def __init__(self, pidf):
+        pass
+
+    def read_config(self):
+        """
+        Reads config from json files and sets configurable vaiables
+        """
+    
+    def ping(self):
+        """
+        Requests ping from os and returns times
+        """
+
+    def run(self):
+        """
+        Runs the daemon and controls execution
+        """
+```
+
+#### ssid_detection.py
+
+```python
+class Ssid_Detection(Daemon):
+    '''
+        Class to detect a reservered ssid comming from an unkown mac address
+    '''
+    def __init__(self, pidf):
+        pass
+
+    def read_config(self):
+        """
+        Reads in json config and sets configurable variables
+        """
+
+    def is_ap(self, pkt):
+        """
+        Checks if a packet is from an access point
+
+        :pkt: Packet sniffed by scapy
+        """
+
+    def find_ap(self):
+        """
+        Sniffs packets to find beacon packets from access points
+        """
+
+    def read_ssid(self):
+        """
+        Reads in all known ssids from config
+
+        :raises FileNotFoundError: The config file could not be read/found
+        """
+
+    def send_alert(self, message):
+        """
+        Send a slack alert to channel
+
+        :message: String message to send as alert
+        """
+
+    def run(self):
+        """
+        Runs the daemon and controls execution
+        """
+```
+
+#### system_stats.py
+
+```python
+class System_Stats(Daemon):
+    '''
+        Class to monitor system stats
+    '''
+    def __init__(self, pidf):
+        pass
+
+    def read_config(self):
+        """
+        Read in config values from json config to set configurable variables
+        """
+
+    def get_loadavg(self):
+        """
+        Reads /proc/loadavg file to find the systems load average 
+        for 1min 5min 10min
+
+        :raises OSError: file could not be read
+        """
+
+    def parse(self, data):
+        """
+        Formats data recived from file to graphite metric format
+
+        :data: list of strings to be formatted
+        """
+
+    def run(self):
+        """
+        Runs the daemon controls funcitonality
+        """
+```
