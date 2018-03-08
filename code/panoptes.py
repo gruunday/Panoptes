@@ -26,7 +26,6 @@ def main():
         if device[-1] == 'Ralink Technology, Corp. RT2870/RT3070':
             mon_device = device[1]
             mon_name = device[0]
-    print(mon_device, mon_name)
     if mon_device == None:
         with open('/var/log/panoptes/system.log', 'a+') as f:
             f.write('Could not find an interface to monitor on in panotpes')
