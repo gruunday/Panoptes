@@ -7,7 +7,6 @@
 ## Team members
 
 * Thomas Doyle
-* Shanan Lynch
 
 ### Dependencies
 
