@@ -186,15 +186,15 @@ $ ./install.sh
     "packet_stats": {
         "timeout" : 1,
         "interface": "mon1"},
-        "pushbullet": {
-                "push_device_tokens": ["insert api tokens"]},
-        "dhcp_rogue_server": {
-                "interface": "mon1",
-                "sleeptime": 2},
-        "arp_Test": {
-                "interface": "mon1",
-                "sleeptime": 1,
-                "maclimit": 2}
+    "pushbullet": {
+        "push_device_tokens": ["insert api tokens"]},
+    "dhcp_rogue_server": {
+        "interface": "mon1",
+        "sleeptime": 2},
+    "arp_Test": {
+        "interface": "mon1",
+        "sleeptime": 1,
+        "maclimit": 2}
 }
 ```
 
