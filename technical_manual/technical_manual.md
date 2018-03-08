@@ -236,6 +236,11 @@ This specifies settings for ssid detection plugin
 This specifies settings for ping metrics plugin
 > **sleeptime**: How often to run plugin (Seconds)
 
+##### pushbullet
+
+This specifes setting for pushbullet alerts
+> **push_device_tokens**: is a list of api keys for each device you want to alert, becuase there is no group functionality in pushbullet
+
 ## 7. Testing
 
 ### 6.1 Functional 
