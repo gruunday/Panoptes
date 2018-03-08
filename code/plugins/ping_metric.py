@@ -44,7 +44,7 @@ class Ping_Metric(Daemon):
         except subprocess.CalledProcessError:
             # This error will occur because the script has not connected
             # to the internet. This is fine and expected
-            pass
+            return None, None, None
         return mi, avg, mx
 
     # Overrides run class in Daemon super class
