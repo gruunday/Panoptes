@@ -21,10 +21,13 @@ class Metric_Fling_TestCase(unittest.TestCase):
 
     def test_ping(self):
         """Test Case A. Ping performs correctly"""
-        ret_min, ret_avg, ret_max = self.pinger.ping()
-        self.assertEqual(isinstance(ret_min, int), True)
-        self.assertEqual(isinstance(ret_avg, int), True)
-        self.assertEqual(isinstance(ret_max, int), True)
+        while True:
+            ret_min, ret_avg, ret_max = self.pinger.ping()
+            if ret_min != None:
+                 break
+        self.assertEqual(isinstance(float(ret_min), float), True, f'{ret_min}, {type(ret_min)}')
+        self.assertEqual(isinstance(float(ret_avg), float), True)
+        self.assertEqual(isinstance(float(ret_max), float), True)
         self.assertLess(ret_min, ret_avg)
         self.assertLess(ret_avg, ret_max)
         self.assertLess(ret_min, ret_max)
@@ -33,4 +36,3 @@ class Metric_Fling_TestCase(unittest.TestCase):
         """Test Case B. Read Config performs correctly"""
         config = self.pinger.read_config()
         self.assertEqual(config, self.config)
-
