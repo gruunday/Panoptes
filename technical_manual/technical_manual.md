@@ -103,6 +103,8 @@
 
 #### Installing the OS
 
+We need to install the software on an sd card to boot the raspberry pi from.
+
 First we need to download the kali linux image from [kali website](https://www.offensive-security.com/kali-linux-arm-images/#1493408272250-e17e9049-9ce8)
 
 Or with the following command 
