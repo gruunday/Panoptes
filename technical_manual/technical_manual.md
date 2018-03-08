@@ -271,9 +271,9 @@ Testing Highlights
 > All the plugins can be configured with the main config, and can be easily changed and changed back again.
 > Once configured the system will start again from boot. Therefore if there is a powercut or anything goes wrong, pi's can be turned off and on again and they can run once more.
 
-### Class Skeletons
+### Functional Documentation
 
-#### Daemon.py
+#### Daemon Class
 
 ```python
 class Daemon:
@@ -330,7 +330,7 @@ class Daemon:
 
 ```
 
-#### Metric_fling.py
+#### Metric Fling Class
 
 ```python
 class Metric_Fling():
@@ -363,7 +363,7 @@ class Metric_Fling():
         """
 ```
 
-#### Nodes_up.py
+#### Nodes Up Class
 
 ```python
 class Nodes_Up(Daemon):
@@ -384,7 +384,7 @@ class Nodes_Up(Daemon):
         """
 ```
 
-#### Ap_metrics.py
+#### Ap Metrics
 
 ```python
 class Ap_Metrics(Daemon):
@@ -416,7 +416,7 @@ class Ap_Metrics(Daemon):
         Runs command and controls execution
         """
 ```
-#### packet_stats.py
+#### Packet Stats
 
 ```python
 class Packet_Stats(Daemon):
@@ -447,7 +447,7 @@ class Packet_Stats(Daemon):
         """
 ```
 
-#### ping_metric.py
+#### Ping Metric
 
 ```python
 class Ping_Metric(Daemon):
@@ -473,7 +473,7 @@ class Ping_Metric(Daemon):
         """
 ```
 
-#### ssid_detection.py
+#### Ssid Detection
 
 ```python
 class Ssid_Detection(Daemon):
@@ -520,7 +520,7 @@ class Ssid_Detection(Daemon):
         """
 ```
 
-#### system_stats.py
+#### System Stats
 
 ```python
 class System_Stats(Daemon):
