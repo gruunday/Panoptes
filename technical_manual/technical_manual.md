@@ -27,7 +27,9 @@
 > This project is setting out to be able to monitor wifi networks across and organisation, from small scale like a coffee shop, to large scale in a college campus. We want the nodes to be relitivly cheap and also work well on a large, distributed scale. We want them all independent and to be able to work regardless of communication with other nodes.
 > A lot of attacks can be performed on wifi networks and we hope to add intrustion detection in our system to alert to such attacks. We also want to collect statistics on the wifi network to alert administrators of the network to poor performance, outages and black spots. Overall we want to improve the monitoring and the statisitcs we get back from wifi.
 
-![Communication Diagram](CommunicationDiagram.png)
+#### Context Diagram
+
+![Communication Diagram](images/CommunicationDiagram.png)
 
 #### 1.2 Glossary
 
@@ -42,9 +44,9 @@
 > Because what we are doing is detering hackers, we must employ the use of tools the hackers use. So we are using a linux distrbution for the raspberry pi operating system called kali (previously known as backtrack).
 > The primary power source for this device will be 5 volts from a wall outlet but because this is a low voltage computer we can easily use a battery pack to power the device.
 
-#### Diagram
+#### Architechture Diagram
 
-![Architechture Diagram](Architechture.png)
+![Architechture Diagram](images/Architechture.png)
 
 #### 2.1 Language Choice
 
