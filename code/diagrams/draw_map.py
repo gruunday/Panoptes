@@ -146,7 +146,10 @@ def get_nodes(data):
 #        distance = node["datapoints"][-1][0]
 #        name = node["target"].split('.')[0]
 #        node_lst.append((name, distance))
-    node_lst = [('anam', 28.127), ('saturn', 30), ('pluto', 5), ('gary', 7), ('dave', 40)]
+    node_lst = [('node1', 28.127), ('node2', 30), ('node3', 5), ('node4', 7), ('node5', 40), \
+            ('node6', 21.127), ('node7', 36), ('node8', 50), ('node9', 37), ('node10', 4), \
+            ('node11', 24.17), ('node12', 2), ('node13', 8), ('node14', 4), ('node15', 3), \
+            ('node11', 24.17), ('node12', 2), ('node13', 8), ('node14', 4), ('node15', 3)]
     return node_lst
 
 def give_points(node_lst):
@@ -174,8 +177,8 @@ def draw_map(point, cost, width=500, height=500):
     for node in point:
         draw.line((point[node][0],point[node][1]),fill=(0,255,0),width=3)
 
-    for node in point:
-        msg = node #+ str(point[node][0])
+    for node in point: # Uncomment below to display coordiates of nodes also
+        msg = node # + str(point[node][0])
         draw.text(point[node][0],msg,(0,0,0))
    
     # Draw server last to be on top
@@ -186,13 +189,15 @@ def draw_map(point, cost, width=500, height=500):
     draw.text((5,490),f'Cost {cost}',(0,0,0))
 
     #img.show() 
-    img.save('/home/greenday/www/diagrams/network.png')
+    filename = f'network{time.time()}.png'
+    img.save(f'/home/greenday/www/diagrams/{filename}')
+    return filename
 
-def create_page():
+def create_page(filename):
     f = open('/home/greenday/www/diagrams/index.html', 'w+')
     f.write('<!doctype html>\n')
     f.write('<head>\n \t<title>Network Diagram</title>\n </head>')
-    f.write('<body>\n \t <p> \t <img src="network.png" alt="Network Diagram"></p>\n')
+    f.write(f'<body>\n \t <p><h1>Network Diagram</h1> \n \t<img src="{filename}" alt="Network Diagram"></p>\n')
     f.write(f'Last updated: {time.strftime("%a, %d %b %Y %H:%M:%S", time.gmtime())}\n</body>')
     f.close()
 
@@ -200,36 +205,17 @@ def main():
     #data = get_data()
     population = []
     data = ''
-    best_score = 1000000000000
     node_lst = get_nodes(data)
     # make first random guess
     best_guess = give_points(node_lst)
     # get the cost of that guess
     score = cost(best_guess)
-    #draw_map(best_guess, score)
     # Run simulated_annealing on it to get it better
     ans = simulated_annealing(best_guess, cost)
     # get score of new diagram
     sim_score = cost(ans)
-    drawn = False
-    for _ in range(1):
-        if sim_score < 160000:
-            draw_map(ans, sim_score)
-            drawn = True
-            break
-        else:
-            if sim_score < best_score:
-                best_score = sim_score
-                best_guess = ans
-                print(f'using graph with score {best_score}')
-                simulated_annealing(ans, cost)
-            else:
-                print(f'Reusing graph score {best_score}')
-                simulated_annealing(best_guess, cost)
-    if not drawn:
-        draw_map(ans, best_score)
-    create_page()
+    filename = draw_map(ans, sim_score)
+    create_page(filename)
     
-
 if __name__ == '__main__':
     main()
